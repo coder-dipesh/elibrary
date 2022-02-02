@@ -45,8 +45,12 @@ INSTALLED_APPS = [
 
     #External Packages
     'bootstrapform',
+    'crispy_forms',
     'django_filters',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -137,7 +141,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-LOGIN_URL = '/login'
+LOGIN_URL = '/signin'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
