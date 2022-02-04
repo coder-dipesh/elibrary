@@ -1,0 +1,144 @@
+{% load static %}
+
+<style>
+  body {
+    font-family: Poppins;
+  }
+  .l-btn{
+    color: #ffffff;
+    opacity: 1;
+  }
+
+  .s-btn{
+    text-decoration: none;
+    margin-right:2em;
+    color: #ffffff;
+  }
+  .s-btn:hover{
+    color: #00eeb6
+  }
+
+  .notification {
+    color: white;
+    text-decoration: none;
+    padding: 8px 18px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .notification .badge {
+    position: absolute;
+    top: -4px;
+    right: -10px;
+    padding: 2px 6px;
+    border-radius: 80%;
+    background: red;
+    color: white;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid overlay" id="navbar">
+    <a id="logo" class="navbar-brand" href="/">
+      <img src="{% static 'images/elibtransparent.png' %}" alt="eLibrary" width="64" height="64" />
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="False"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item topnav">
+          <a class="nav-link" aria-current="page" href="/">
+            Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link {{activate_category_user}}" href="/books/get_category_user">Category</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link {{activate_book_user}}" href="/books/show_books">Books</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link {{activate_author}}" href="/books/show_authors">Authors</a>
+        </li>
+
+        
+        <li class="nav-item">
+          <a class="nav-link {{activate_myorders}}" href="/books/user_all_order">Orders</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link {{activate_contact}}" href="/admins/getContacts">Contact Us</a>
+        </li>
+
+
+
+      </ul>
+
+      <ul class="d-flex navbar-nav mb-2 mb-lg-0">
+
+        <!-- <li class="nav-item">
+          <a class="notification nav-link {{activate_my_cart}}" href="/books/mycart"
+            >Cart <i class="fa fa-cart-plus" aria-hidden="true"></i> <span class="badge"></span></a
+          >
+        </li> -->
+
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href=""
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img src="/{{request.user.profile.profile_pic}}" width="35" alt="..." />
+            {{request.user.username}}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/get_profile">My profile</a></li>
+            <li><a class="dropdown-item" href="/update_profile">Update profile</a></li>
+            <li><a class="dropdown-item" href="/user_password_change">Change password</a></li>
+
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+
+            <li><a class="dropdown-item" href="/books/my_pending_order">My Pending Orders</a></li>
+            <li><a class="dropdown-item" href="/books/my_approved_order">My Approved Orders</a></li>
+
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li><a class="dropdown-item" href="">More</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="l-btn nav-link btn btn-sm btn-danger mx-2 mr-auto text-white" href="/signout">LogOut</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="s-btn " href="/signin">
+            Sign In
+            <i class="fas fa-sign-in-alt"></i>
+          </a>
+        </li>
+
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

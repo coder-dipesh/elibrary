@@ -1,0 +1,9 @@
+.search_form {
+  position: relative;
+}
+
+.search-btn {
+  position: absolute;
+  right: 30px;
+  top: 16px;
+}
