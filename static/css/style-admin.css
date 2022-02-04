@@ -1,0 +1,97 @@
+p.help-block, .myForm ul li{font-size:12px;}
+
+.myForm label.control-label, .myForm div{width:100%;}
+
+
+.search_form{
+position: relative;
+}
+
+
+.search-btn {
+position: absolute;
+right: 30px;
+top: 16px;}
+
+
+
+#last{
+    padding: 20px 0px 40px 0px;
+    background-color: black;
+    text-align: center;
+}
+
+#last>p{
+    color: #ffffff;
+    padding: 20px;
+}
+
+
+#last>p>a:hover{
+    cursor: pointer;
+    color: gray;
+    text-decoration: underline;
+}
+
+#last i{
+    background-color: #ffffff;
+    padding: 3px;
+    margin: 3px;
+    border-radius: 60px;
+    cursor: pointer;
+}
+
+#last i:hover{
+    background-color: #77a12d;
+}
+
+
+#m-container{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/static/images/pic2.jfif');
+    height: 100%;
+    background-position: center;
+
+    background-size: cover;
+    position: relative;
+    }
+
+
+#m-container2{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/static/images/pic2.jfif');
+    height: 100%;
+    background-position: center;
+
+    background-size: cover;
+    position: relative;
+    }
+
+#m-container3{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/static/images/pic8.jfif');
+    height: 100%;
+    background-position: center;
+
+    background-size: cover;
+    position: relative;
+    }
+
+#m-container7{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url('/static/images/pic11.jpg');
+    height: 100%;
+    background-position: center;
+
+    background-size: cover;
+    position: relative;
+    }
+
+
+
+
+
+
+
+
+
