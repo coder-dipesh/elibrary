@@ -1,4 +1,38 @@
+<style>
+  #btn-back-to-top {
+  display: none;
+  position: fixed;
+  bottom: 7px;
+  right: 20px;
+  height: 39px;
+  width: 39px;
+  z-index: 99;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  background-color: #5bc3ee;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: center;
+}
+
+@media (max-width: 426px) {
+  #btn-back-to-top {
+    bottom: 45px;
+  }
+}
+
+</style>
+
+
+
+<button type="button" onclick="topFunction()" id="btn-back-to-top">
+            <i class="fas fa-arrow-up"></i>
+        <center></center>
+    </button>
 <footer class="bg-dark text-light text-center text-white">
+      <!-- social-links -->
   <div class="container  pt-4">
     <section class="mb-4 ">
       <a
@@ -57,3 +91,22 @@
     <a class="text-white" href="https://dipeshsiwakoti.com/" style="text-decoration:none;">coder-dipesh</a>
   </div>
 </footer>
+
+
+<script>
+var mybutton = document.getElementById("btn-back-to-top");
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>

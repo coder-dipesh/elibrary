@@ -1,0 +1,52 @@
+/*==============================Recently added=============================================*/
+#featured {
+  background-color: antiquewhite;
+  background-image: url("/static/images/topBooks.jpg");
+  padding: 0px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/*======================================== testimonials=================================*/
+#eight {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/images/carousel3.jpg");
+  padding: 50px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#clients {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 30px;
+  justify-content: center;
+}
+
+.client {
+  text-align: center;
+  width: 400px;
+  margin: 20px;
+  line-height: 30px;
+}
+
+.client img {
+  margin: 5px;
+  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.274);
+  border-radius: 50%;
+  object-fit: cover;
+  height: 12em;
+  width: 12em;
+
+}
+
+.client h2 {
+  color: #77a12d;
+}
+
+.client h3 {
+  font-weight: lighter;
+  font-size: 20px;
+  padding: 10px;
+}
