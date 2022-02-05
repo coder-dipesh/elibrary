@@ -15,7 +15,8 @@
 
     <!-- Fontawesome Import -->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f208800c67.js" crossorigin="anonymous"></script>
+
 
     <!-- Setting Site Icon Globally -->
     <link rel="icon" type="image/x-icon" href="{%static 'images/elibtransparent.png' %}" />
@@ -24,7 +25,15 @@
     </style>
   </head>
   <body>
-    <div class="container-fluid p-0">{% block content %} {% endblock content %}</div>
+    <div class="container-fluid p-0">
+      {% include 'header-admin.html' %}
+      {% include 'sidebar-admin.html' %}
+
+      
+      {% block content %} {% endblock content %}
+    
+      {% include 'footer.html' %}
+    </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
     <script
