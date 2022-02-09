@@ -4,18 +4,18 @@
   body {
     font-family: Poppins;
   }
-  .l-btn{
+  .l-btn {
     color: #ffffff;
     opacity: 1;
   }
 
-  .s-btn{
+  .s-btn {
     text-decoration: none;
-    margin-right:2em;
+    margin-right: 2em;
     color: #ffffff;
   }
-  .s-btn:hover{
-    color: #00eeb6
+  .s-btn:hover {
+    color: #00eeb6;
   }
 
   .notification {
@@ -37,7 +37,7 @@
   }
 </style>
 
-<nav class="navbar sticky-top  navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid overlay" id="navbar">
     <a id="logo" class="navbar-brand" href="/">
       <img src="{% static 'images/elibtransparent.png' %}" alt="eLibrary" width="64" height="64" />
@@ -57,8 +57,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item topnav">
-          <a class="nav-link" aria-current="page" href="/">
-            Home</a>
+          <a class="nav-link" aria-current="page" href="/"> Home</a>
         </li>
 
         <li class="nav-item">
@@ -73,7 +72,6 @@
           <a class="nav-link {{activate_author}}" href="/books/show_authors">Authors</a>
         </li>
 
-        
         <li class="nav-item">
           <a class="nav-link {{activate_myorders}}" href="/books/user_all_order">Orders</a>
         </li>
@@ -81,13 +79,9 @@
         <li class="nav-item">
           <a class="nav-link {{activate_contact}}" href="/admins/getContacts">Contact Us</a>
         </li>
-
-
-
       </ul>
 
       <ul class="d-flex navbar-nav mb-2 mb-lg-0">
-
         <!-- <li class="nav-item">
           <a class="notification nav-link {{activate_my_cart}}" href="/books/mycart"
             >Cart <i class="fa fa-cart-plus" aria-hidden="true"></i> <span class="badge"></span></a
@@ -105,33 +99,55 @@
             aria-expanded="false"
           >
             <img src="/{{request.user.profile.profile_pic}}" width="35" alt="..." />
-            {{request.user.username}}
+            {{request.user.profile.firstname}}
+            {{request.user.profile.lastname}} 
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/get_profile">My profile</a></li>
-            <li><a class="dropdown-item" href="/update_profile">Update profile</a></li>
-            <li><a class="dropdown-item" href="/user_password_change">Change password</a></li>
+            <li>
+              <a class="dropdown-item" href="/user_profile"><i class="fas fa-user pe-3 fa-sm"></i>My profile</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/update_user_profile"
+                ><i class="fas fa-pen pe-3 fa-sm"></i>Update profile</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="/change_password"><i class="fas fa-key pe-3 fa-sm"></i>Change password</a>
+            </li>
 
             <li>
               <hr class="dropdown-divider" />
             </li>
 
-            <li><a class="dropdown-item" href="/books/my_pending_order">My Pending Orders</a></li>
-            <li><a class="dropdown-item" href="/books/my_approved_order">My Approved Orders</a></li>
+            <li>
+              <a class="dropdown-item" href="/books/my_pending_order"
+                ><i class="fas fa-user pe-3 fa-sm"></i>My Pending Orders</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="/books/my_approved_order"
+                ><i class="fas fa-user pe-3 fa-sm"></i>My Approved Orders</a
+              >
+            </li>
 
             <li>
               <hr class="dropdown-divider" />
             </li>
-            <li><a class="dropdown-item" href="">More</a></li>
+
+            <li class="nav-item">
+              <a class="l-btn nav-link btn btn-sm btn-danger mx-2 mr-auto text-white" href="/signout">Log Out</a>
+            </li>
           </ul>
         </li>
 
+        <!-- To add space in right -->
         <li class="nav-item">
-          <a class="l-btn nav-link btn btn-sm btn-danger mx-2 mr-auto text-white" href="/signout">LogOut</a>
+          <a class="l-btn nav-link btn-lg mx-2 mr-auto text-dark" href="">  </a>
         </li>
+
         {% else %}
         <li class="nav-item">
-          <a class="s-btn " href="/signin">
+          <a class="s-btn" href="/signin">
             Sign In
             <i class="fas fa-sign-in-alt"></i>
           </a>

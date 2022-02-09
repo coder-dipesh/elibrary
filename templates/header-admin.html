@@ -1,0 +1,86 @@
+{% load static %}
+
+<style>
+  body {
+    font-family: Poppins;
+  }
+  a{
+    text-decoration: none;
+  }
+</style>
+
+<!-- <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid d-flex overlay" id="navbar">
+    <a id="logo" class="navbar-brand" href="/">
+      <img src="{% static 'images/elibtransparent.png' %}" alt="eLibrary" width="64" height="64" />
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="False"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+ 
+    <div class="collapse navbar-collapse d-flex" id="navbarSupportedContent">
+
+      <ul class="d-flex">
+        <li>
+          <a href="">eLibrary</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav mb-2 d-flex mb-lg-0">
+
+        <li class="nav-item text-light dropdown">
+            <img src="/{{request.user.profile.profile_pic}}" width="35" alt="" />
+            Welcome, Admin <br>
+           <center style="color: #5bc3ee;"> {{request.user.username}} </center>
+
+          </a>
+          
+        </li>
+
+
+        <li class="nav-item">
+          <a class="l-btn nav-link btn-lg mx-2 mr-auto text-dark" href="">  </a>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+</nav> -->
+
+
+
+
+<header>
+  <nav class="navbar sticky-top navbar-dark bg-dark justify-content-between" >
+    <div class="container-fluid d-flex">
+  
+      <a class="navbar-brand" href="/">
+        <img src="{% static 'images/elibtransparent.png' %}" alt="eLibrary" width="64" height="64" style="margin-left: 10px;" >
+      </a>
+
+
+
+      {% if user.is_authenticated %}
+
+      <a class="text-light">
+        Welcome 
+         <span style="color: #5bc3ee; font-weight:600;"> {{request.user.username}}  </span>
+      </a>
+      {% endif %}
+
+    </div>
+
+  </div>
+</nav>
+</header>
