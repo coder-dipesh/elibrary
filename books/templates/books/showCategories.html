@@ -1,0 +1,65 @@
+{% extends 'layout.html' %} {% load static %} {% block title %}
+<title>Users Category</title>
+{% endblock %} {% block content %}
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  .container {
+    overflow: hidden;
+  }
+
+  .Qbtn {
+    border: none;
+    outline: none;
+    padding: 12px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+
+  .Qbtn:hover {
+    background-color: #ddd;
+  }
+
+  .Qbtn.active {
+    background-color: #666;
+    color: white;
+  }
+</style>
+<div class="container-fluid">
+  <div class="" id="myBtnContainer">
+    <button class="Qbtn active">Show all Categories</button>
+    {% for i in categories %}
+    <button class="Qbtn">{{i.category_name}}</button>
+    {% endfor %}
+  </div>
+
+  <div class="container-fluid py-4">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+      {% for i in categories %}
+      <div class="col">
+        <div class="card bg-dark h-100 shadow-lg rounded">
+          <img
+            src="/{{ i.category_image }}"
+            class="card-img-top p-1"
+            height="400"
+            width="200"
+            style="object-fit: cover"
+            alt="category_image"
+          />
+          <div class="text-white m-2 p-2">
+            <h5 class="card-title">{{i.category_name}}</h5>
+            <p class="card-subtitle mb-2 text-muted">{{i.category_description}}</p>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+
+{% endblock content %}
