@@ -17,9 +17,24 @@ urlpatterns = [
     path('delete-author/<int:author_id>', views.deleteAuthor, name='delete-author'),
     path('update-author/<int:author_id>', views.updateAuthor, name='update-author'),
 
+
+    path('add-to-cart/<int:book_id>', views.addToCart, name="add-to-cart"),
+    path('show-cart-items', views.showCartItems, name='show-cart-items'),
+    path('remove-cart-items/<int:cart_id>', views.removeCartItems, name="remove-cart-items"),
+    path('order-form/<int:book_id>/<int:cart_id>', views.orderForm),
+
+
+    path('my-approved-order', views.approvedOrder, name='my-approved-order'),
+    path('my-pending-order', views.pendingOrder, name='my-pending-order'),
+    path('my-pending-order/cancel-order/<int:order_id>', views.cancelOrder),
+    path('my-returned-order', views.returnedOrder,name='my-returned-order'),
+
+
     # URLs for User-Side
     path('show-categories-user', views.showCategories, name='show-categories-user'),
     path('show-books-user', views.showBooks, name='show-books-user'),
     path('show-authors-user', views.showAuthors, name='show-authors-user'),
+    path('user-all-order', views.userAllOrder, name='user-all-order'),
+
 
 ]

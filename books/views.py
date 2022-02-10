@@ -1,11 +1,16 @@
-from multiprocessing import context
+from itertools import count
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from accounts.auth import admin_only,user_only,unauthenticated_user
+from accounts.auth import admin_only,user_only
 from books.filters import AuthorFilter, BookFilter
-from books.forms import AuthorForm, BookForm, CategoryForm
-from books.models import Author, Book, Category
+from books.forms import AuthorForm, BookForm, CategoryForm, OrderForm
+from books.models import Author, Book, Cart, Category, Order
+
+# For Sending Mail
+from django.conf import settings
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
 # ===================================================
 # ==================== CATEGORY CRUD ================
@@ -72,8 +77,11 @@ def categoryUpdateForm(request,category_id):
 @user_only
 def showCategories(request):
     categories = Category.objects.all().order_by('-id')
+    count= categories.count()
+
     context = {
         'categories': categories,
+        'count': count,
         'activate_category_user': 'active'
     }
     return render(request, 'books/showCategories.html', context)
@@ -152,8 +160,10 @@ def bookUpdateForm(request, book_id):
 @user_only
 def showBooks(request):
     books = Book.objects.all().order_by('-id')
+    count = books.count()
     context = {
         'books': books,
+        'count': count,
         'activate_book_user': 'active'
     }
     return render(request, 'books/showBooks.html', context)
@@ -234,8 +244,10 @@ def updateAuthor(request, author_id):
 @user_only
 def showAuthors(request):
     authors = Author.objects.all().order_by('-id')
+    count = authors.count()
     context = {
         'authors': authors,
+        'count': count,
         'activate_author': 'active'
     }
     return render(request, 'books/showAuthors.html', context)
@@ -248,5 +260,167 @@ def showAuthors(request):
 
 
 # ===================================================
-# ================== CATEGORY CRUD  =================
+# ================== CART & ORDER ===================
 # ===================================================
+
+
+@login_required
+@user_only
+def addToCart(request, book_id):
+    user = request.user
+    book = Book.objects.get(id=book_id)
+    check_item_presence = Cart.objects.filter(user=user, book=book)
+    if check_item_presence:
+        messages.add_message(request, messages.ERROR, "Item is already present in cart")
+        return redirect('/books/show-books-user')
+    else:
+        cart = Cart.objects.create(book=book, user=user)
+        if cart:
+            messages.add_message(request, messages.SUCCESS, 'Book added  to cart')
+            return redirect('/books/show-cart-items')
+        else:
+            messages.add_message(request, messages.ERROR, 'Unable to add book to cart')
+
+
+@login_required
+@user_only
+def showCartItems(request):
+    user = request.user
+    items = Cart.objects.filter(user=user)
+    count= items.count()
+
+    context = {
+        'items': items,
+        'count': count,
+        'activate_my_cart': 'active'
+    }
+    return render(request, 'books/myCart.html', context)
+
+@login_required
+@user_only
+def removeCartItems(request, cart_id):
+    item = Cart.objects.get(id=cart_id)
+    item.delete()
+    messages.add_message(request, messages.SUCCESS, 'Cart item removed successfully')
+    return redirect('/books/show-cart-items')
+
+
+@login_required
+@user_only
+def orderForm(request, book_id, cart_id):
+    user = request.user
+    book = Book.objects.get(id=book_id)
+    cart_item = Cart.objects.get(id=cart_id)
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            quantity = request.POST.get('quantity')
+            price = book.book_price
+            total_price = int(quantity) * int(price)
+            contact_no = request.POST.get('contact_no')
+            contact_address = request.POST.get('contact_address')
+            
+            order = Order.objects.create(book=book,
+                                        user=user,
+                                        quantity=quantity,
+                                        total_price=total_price,
+                                        contact_no=contact_no,
+                                        contact_address=contact_address,
+                                        status="Pending"
+
+                                        )
+            if order:
+                template = render_to_string('books/sendEmailTemplate.html',
+                                            {'name': request.user.username, 'book': book.book_name})
+                email = EmailMessage(
+                    'Your order was successfully made!!',
+                    template, settings.EMAIL_HOST_USER, [request.user.email],
+                )
+                email.fail_silently = False
+                email.send()
+                print("Email sent")
+                messages.add_message(request, messages.SUCCESS, 'Book Ordered successfully!!!')
+                cart_item.delete()
+                return redirect('/books/my-pending-order')
+        else:
+            messages.add_message(request, messages.ERROR, 'Something went wrong')
+            return render(request, 'books/orderForm.html', {order_form: form})
+    context = {
+        'order_form': OrderForm,
+    }
+    return render(request, 'books/orderForm.html', context)
+
+
+# ===================================================
+# ================= END CART & ORDER ================
+# ===================================================
+
+
+
+# ===================================================
+# ========= ALL, PENDING, APPROVED ORDERS ===========
+# ===================================================
+@login_required
+@user_only
+def userAllOrder(request):
+    items = Order.objects.all().order_by('-id')
+    count = items.count()
+    context = {
+        'items': items,
+        'count': count,
+        'activate_myorders': 'active'
+    }
+    return render(request, 'books/userAllOrder.html', context)
+
+@login_required
+@user_only
+def approvedOrder(request):
+    user = request.user
+    items = Order.objects.filter(user=user, status="Approved").order_by('-id')
+    count=items.count()
+
+    context = {
+        'items': items,
+        'count': count,
+        'activate_myorders': 'active'
+    }
+    return render(request, 'books/approvedOrder.html', context)
+
+@login_required
+@user_only
+def pendingOrder(request):
+    user = request.user
+    items = Order.objects.filter(user=user, status="Pending").order_by('-id')
+    count=items.count()
+    context = {
+        'items': items,
+        'count': count,
+        'activate_myorders': 'active'
+    }
+    return render(request, 'books/pendingOrder.html', context)
+
+
+@login_required
+@user_only
+def cancelOrder(request, order_id):
+    item = Order.objects.get(id=order_id)
+    item.delete()
+    messages.add_message(request, messages.SUCCESS, 'Order cancelled successfully')
+    return redirect('/books/my-pending-order')
+
+
+
+@login_required
+@user_only
+def returnedOrder(request):
+    user = request.user
+    items = Order.objects.filter(user=user, status="Returned").order_by('-id')
+    count=items.count()
+
+    context = {
+        'items': items,
+        'count': count,
+
+        'activate_myorders': 'active'
+    }
+    return render(request, 'books/returnedOrder.html', context)

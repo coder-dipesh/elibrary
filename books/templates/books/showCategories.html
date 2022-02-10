@@ -28,6 +28,11 @@
     color: white;
   }
 </style>
+
+{% if count == 0 %}
+<h2 class="text-center mt-4 p-3 text-dark text-uppercase" style="margin-bottom: 27rem">No categories to display.</h2>
+{% else %}
+
 <div class="container-fluid">
   <div class="" id="myBtnContainer">
     <button class="Qbtn active">Show all Categories</button>
@@ -59,7 +64,5 @@
       {% endfor %}
     </div>
   </div>
-
 </div>
-
-{% endblock content %}
+{% endif %} {% endblock content %}

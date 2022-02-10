@@ -1,0 +1,38 @@
+{% extends 'layout.html' %} {% load bootstrap %} {% block title %}
+<title>Order Item</title>
+{% endblock%} {% block content %}
+<style>
+  p.help-block {
+    color: #abc;
+  }
+
+  span.help-block {
+    color: red;
+  }
+</style>
+<div class="container-fluid" id="m-container10" style="min-height: 100vh">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <h1 class="text-center mt-4 p-4 myForm text-dark">Order Books</h1>
+      {% include 'message.html' %}
+      <div class="card py-2 px-2">
+        <form class="form myForm mt-4" action="" method="POST">
+          {% csrf_token %} {{ order_form | bootstrap_horizontal }}
+          <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var form_fields = document.getElementsByTagName("input");
+  form_fields[1].placeholder = "Enter quantity";
+  form_fields[2].placeholder = "Enter Contact Number";
+  form_fields[3].placeholder = "Enter Contact Address";
+
+  for (field in form_fields) {
+    form_fields[field].className += " my-3";
+  }
+</script>
+{% endblock %}

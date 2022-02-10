@@ -1,6 +1,10 @@
 {% extends 'layout.html' %} {% load static %} {% block title %}
 <title>Users Author</title>
 {% endblock %} {% block content %}
+
+{% if count == 0 %}
+<h2 class="text-center mt-4 p-3 text-dark text-uppercase" style="margin-bottom: 27rem">We canno't find any author.</h2>
+{% else %}
 <div class="container-fluid" style="min-height: 100vh">
   <h1 class="d-flex justify-content-center p-3 text-dark">ALL AUTHORS</h1>
 
@@ -29,5 +33,6 @@
     </div>
   </div>
 </div>
+{% endif %}
 
 {% endblock content %}
