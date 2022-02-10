@@ -16,6 +16,10 @@ urlpatterns = [
     path('get-author', views.getAuthor, name='get-author'),
     path('delete-author/<int:author_id>', views.deleteAuthor, name='delete-author'),
     path('update-author/<int:author_id>', views.updateAuthor, name='update-author'),
-    path('show-author', views.showAuthor, name='show_author'),
+
+    # URLs for User-Side
+    path('show-categories-user', views.showCategories, name='show-categories-user'),
+    path('show-books-user', views.showBooks, name='show-books-user'),
+    path('show-authors-user', views.showAuthors, name='show-authors-user'),
 
 ]

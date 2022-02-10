@@ -15,7 +15,7 @@ from books.models import Author, Book, Category
 @admin_only
 def categoryForm(request):
     if request.method == "POST":
-        form = CategoryForm(request.POST)
+        form = CategoryForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Category added Successfully')
@@ -68,6 +68,15 @@ def categoryUpdateForm(request,category_id):
 
     return render(request , 'books/categoryForm.html', context)
 
+@login_required
+@user_only
+def showCategories(request):
+    categories = Category.objects.all().order_by('-id')
+    context = {
+        'categories': categories,
+        'activate_category_user': 'active'
+    }
+    return render(request, 'books/showCategories.html', context)
 
 # ===================================================
 # ================== CATEGORY CRUD END ==============
@@ -86,7 +95,7 @@ def bookForm(request):
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Book added Successfully')
-            return redirect("/books/get_book")
+            return redirect("/books/get-book")
         else:
             messages.add_message(request, messages.ERROR, 'Unable to add Book')
             return render(request, 'books/book_form.html', {'form_book': form})
@@ -139,9 +148,18 @@ def bookUpdateForm(request, book_id):
     }
     return render(request, 'books/bookUpdateForm.html', context)
 
+@login_required
+@user_only
+def showBooks(request):
+    books = Book.objects.all().order_by('-id')
+    context = {
+        'books': books,
+        'activate_book_user': 'active'
+    }
+    return render(request, 'books/showBooks.html', context)
 
 # ===================================================
-# ================== BOOK CRUD END ================
+# ================== BOOK CRUD END ==================
 # ===================================================
 
 
@@ -213,14 +231,14 @@ def updateAuthor(request, author_id):
 
 
 @login_required
-@admin_only
-def showAuthor(request):
+@user_only
+def showAuthors(request):
     authors = Author.objects.all().order_by('-id')
     context = {
         'authors': authors,
         'activate_author': 'active'
     }
-    return render(request, 'books/showAuthor.html', context)
+    return render(request, 'books/showAuthors.html', context)
 
 
 

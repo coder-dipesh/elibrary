@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     category_name = models.CharField(max_length=200, null=True, validators=[validators.MinLengthValidator(2)])
+    category_image = models.ImageField(upload_to='static/category', null=True)
     category_description = models.TextField(null=True)
     created_date = models.DateTimeField(auto_now_add=True, null=True)
 
@@ -20,7 +21,7 @@ class Book(models.Model):
     stock = models.IntegerField(null=True)
     book_image = models.ImageField(upload_to='static/uploads')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, )
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.book_name

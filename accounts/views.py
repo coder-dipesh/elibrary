@@ -69,7 +69,7 @@ def signout(request):
 
 @login_required
 @user_only
-def get_profile(request):
+def getProfile(request):
     profile = request.user.profile
     context = {
         'profile': profile,
@@ -80,14 +80,14 @@ def get_profile(request):
 
 @login_required
 @user_only
-def update_user_profile(request):
+def updateUserProfile(request):
     profile = request.user.profile
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, "Profile updated successfully")
-            return redirect('/user_profile')
+            return redirect('/user-profile')
     context = {
         'profile': profile,
         'profileUpdateForm': ProfileForm(instance=profile),
@@ -98,14 +98,14 @@ def update_user_profile(request):
 
 
 @login_required
-def change_password(request):
+def changePassword(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
             messages.add_message(request, messages.SUCCESS, "Password Changed Successfully")
-            return redirect('/change_password')
+            return redirect('/change-password')
         else:
             messages.add_message(request, messages.ERROR, "Please verify the form fields")
             return redirect(request, 'accounts/changePassword.html', {'password_change_form': form})
