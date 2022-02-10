@@ -3,15 +3,15 @@
 <title>All Categories</title>
 {% endblock%}
 
-{% block main_content %}
+{% block content %}
 <div class="container-fluid" style="min-height:100vh;">
     <div class="row">
         <div class="col-md-10 offset-md-1">
             <h1 class="text-center ">All Categories</h1>
-            {% include 'messages.html' %}
+            {% include 'message.html' %}
             <div class="card py-2 px-2">
                 <a class="btn btn-primary btn-sm ms-auto"
-                   href="/books/category_form">Add New Category</a>
+                   href="/books/category-form">Add New Category</a>
                 <table class="table-striped mt-4">
                     <tr>
                         <th>Category Name</th>
@@ -26,9 +26,9 @@
                         <td> {{ i.created_date }}</td>
 
 
-                        <td><a class="btn btn-primary btn-sm" href="/books/update_category/{{i.id}}"><i
+                        <td><a class="btn btn-primary btn-sm" href="/books/update-category/{{i.id}}"><i
                                 class="fa fa-pencil-square-o fa-x" aria-hidden="true"></i> Edit</a> &nbsp;
-                            <a class="btn btn-danger" href="/books/delete_category/{{i.id}}"
+                            <a class="btn btn-danger" href="/books/delete-category/{{i.id}}"
                                onclick="return confirm('Are you sure to delete this category?')"><i
                                     class="fa fa-trash fa-2x" aria-hidden="true"></i></a></td>
                     </tr>

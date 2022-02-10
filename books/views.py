@@ -3,9 +3,9 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from accounts.auth import admin_only,user_only,unauthenticated_user
-from books.filters import BookFilter
-from books.forms import BookForm, CategoryForm
-from books.models import Book, Category
+from books.filters import AuthorFilter, BookFilter
+from books.forms import AuthorForm, BookForm, CategoryForm
+from books.models import Author, Book, Category
 
 # ===================================================
 # ==================== CATEGORY CRUD ================
@@ -138,3 +138,97 @@ def bookUpdateForm(request, book_id):
         'activate_book': 'active',
     }
     return render(request, 'books/bookUpdateForm.html', context)
+
+
+# ===================================================
+# ================== BOOK CRUD END ================
+# ===================================================
+
+
+# ===================================================
+# ==================== AUTHOR CRUD ==================
+# ===================================================
+
+
+@login_required
+@admin_only
+def authorForm(request):
+    form = AuthorForm()
+    if request.method == "POST":
+        form = AuthorForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.SUCCESS, 'Author Added Sucessfully')
+            return redirect('/books/get-author')
+        else:
+            messages.add_message(request, messages.ERROR, 'Unable to add author')
+            return render(request, 'books/authorForm.html', {'form_author': form})
+
+    context = {
+        'form_author': AuthorForm,
+        'activate_author': 'active'
+    }
+    return render(request, 'books/authorForm.html', context)
+
+
+@login_required
+@admin_only
+def getAuthor(request):
+    authors = Author.objects.all().order_by('-id')
+    author_filter = AuthorFilter(request.GET, queryset=authors)  # to display form
+    authors_final = author_filter.qs
+
+    context = {
+        'authors': authors_final,
+        'activate_author': 'active',
+        'author_filter': author_filter,
+    }
+    return render(request, 'books/getAuthor.html', context)
+
+
+@login_required
+@admin_only
+def deleteAuthor(request, author_id):
+    author = Author.objects.get(id=author_id)
+    author.delete()
+    messages.add_message(request, messages.SUCCESS, 'Author deleted successfully')
+    return redirect('books/get-author')
+
+@login_required
+@admin_only
+def updateAuthor(request, author_id):
+    author = Author.objects.get(id=author_id)
+    if request.method == "POST":
+        form = AuthorForm(request.POST, request.FILES, instance=author)
+        if form.is_valid():
+            form.save()
+            return redirect('/books/get-author')
+        else:
+            return render(request, 'books/authorUpdateForm.html', {'form_author': form})
+    context = {
+        'form_author': AuthorForm(instance=author),
+        'activate_author': 'active'
+    }
+    return render(request, 'books/authorUpdateForm.html', context)
+
+
+@login_required
+@admin_only
+def showAuthor(request):
+    authors = Author.objects.all().order_by('-id')
+    context = {
+        'authors': authors,
+        'activate_author': 'active'
+    }
+    return render(request, 'books/showAuthor.html', context)
+
+
+
+# ===================================================
+# ================== AUTHOR CRUD END ================
+# ===================================================
+
+
+# ===================================================
+# ================== CATEGORY CRUD  =================
+# ===================================================

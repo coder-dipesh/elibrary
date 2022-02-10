@@ -11,4 +11,11 @@ urlpatterns = [
     path('get-book', views.getBook, name='get-book'),
     path('delete-book/<int:book_id>', views.deleteBook, name='delete-book'),
     path('update-book/<int:book_id>', views.bookUpdateForm, name='update-book'),
+
+    path('author-form', views.authorForm, name='author-form'),
+    path('get-author', views.getAuthor, name='get-author'),
+    path('delete-author/<int:author_id>', views.deleteAuthor, name='delete-author'),
+    path('update-author/<int:author_id>', views.updateAuthor, name='update-author'),
+    path('show-author', views.showAuthor, name='show_author'),
+
 ]

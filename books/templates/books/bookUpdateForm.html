@@ -1,0 +1,49 @@
+{% extends 'admin_layout.html' %}
+{% load bootstrap %}
+{% block title %}
+<title>Update Book</title>
+{% endblock%}
+{% block content %}
+<style>
+    p.help-block{
+        color:#abc;
+    }
+
+    span.help-block{
+        color:red;
+    }
+
+
+</style>
+<div id="m-container2">
+    <div class="container-fluid" style="min-height:100vh;">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h1 class="text-center mt-4 p-4 myForm text-dark">Update Book</h1>
+                {% include 'message.html' %}
+                <div class="card py-2 px-2">
+                    <form class="form myForm mt-4" action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form_book | bootstrap_horizontal }}
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var form_fields = document.getElementsByTagName('input')
+    form_fields[1].placeholder = "Enter Book name"
+    form_fields[2].placeholder = "Enter Author Name"
+    form_fields[3].placeholder = "Enter Book Price"
+
+    for(field in form_fields){
+    form_fields[field].className += ' my-3'
+   }
+
+
+
+</script>
+{% endblock %}

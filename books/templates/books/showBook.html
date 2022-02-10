@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block title %}
+<title>Users Books</title>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid" id="m-container2" style="min-height:100vh;">
+    <h1 class="d-flex justify-content-center  p-3 text-dark">All Books</h1>
+    <div class="row justify-content-around">
+        {% include 'message.html' %}
+        {% for i in books %}
+        <div class="card col-md-3 m-3 bg-dark text-white" data-aos="zoom-in-up">
+            <img src="/{{i.book_image}}" class="card-img-top" alt="..." height="350">
+            <div class="card-body">
+                <p class="card-text">{{i.category.category_name}}</p>
+                <h5 class="card-title">{{i.book_name}}</h5>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <p class="card-text">{{i.book_author}}</p>
+                <p class="card-text">Rs.{{i.book_price}}</p>
+                <a href="/books/add_to_cart/{{i.id}}" class="btn btn-primary"
+                   onclick="return confirm('Are you sure you want to add this book to cart?')"
+                >Add to Cart</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock main_content %}
+
+
+

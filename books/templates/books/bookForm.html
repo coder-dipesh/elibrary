@@ -3,7 +3,7 @@
 {% block title %}
 <title>Add Book</title>
 {% endblock%}
-{% block main_content %}
+{% block content %}
 <style>
     p.help-block{
         color:#abc;
@@ -17,7 +17,7 @@
 <div class="container-fluid" id="m-container2" style="min-height:100vh;">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h1 class="text-center mt-4 p-4 myForm text-white">Add New Book</h1>
+            <h1 class="text-center mt-4 p-4 myForm text-dark">Add New Book</h1>
             {% include 'message.html' %}
             <div class="card py-2 px-2">
                 <form class="form myForm mt-4" action="" method="POST" enctype="multipart/form-data">

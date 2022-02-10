@@ -24,3 +24,18 @@ class Book(models.Model):
 
     def __str__(self):
         return self.book_name
+
+
+
+
+class Author(models.Model):
+    author_name = models.CharField(max_length=200, null=True, validators=[validators.MinLengthValidator(2)])
+    firstname = models.CharField(max_length=50, null=True)
+    lastname = models.CharField(max_length=50, null=True)
+    email = models.EmailField(unique=True, null=True)
+    profile_pic = models.FileField(upload_to='static/author_profile', null=True,
+                                    default='static/user.png')
+    created_date = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.author_name
