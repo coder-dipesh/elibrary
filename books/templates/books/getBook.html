@@ -1,0 +1,63 @@
+{% extends 'admin_layout.html' %} {% load static%} {% load bootstrap %} {% block title %}
+<title>All Books</title>
+{% endblock%} {% block content %}
+<link rel="stylesheet" href="{% static 'css/search_form.css' %}" />
+<div class="container-fluid" style="min-height: 100vh">
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <h1 class="text-center">All Books</h1>
+      {% include 'message.html' %}
+      <div class="card py-2 px-2">
+        <a class="btn btn-primary btn-sm ms-auto" href="/books/book-form">Add New Book</a>
+
+        <div class-="card card-body">
+          <form class="form myForm search_form mt-4" method="get">
+            {{ book_filter.form | bootstrap_horizontal}}
+            <button type="submit" class="btn btn-primary btm-sm mt-3 search_btn">Search</button>
+          </form>
+        </div>
+        <table class="table-striped mt-4">
+          <tr>
+            <th>Book Name</th>
+            <th>Author Name</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+          {% for i in books %}
+          <tr>
+            <td>{{ i.book_name }}</td>
+            <td>{{ i.book_author }}</td>
+            <td>{{ i.book_price }}</td>
+            <td><img src="/{{i.book_image}}" width="200" /></td>
+            <td>{{ i.category.category_name }}</td>
+            <td>
+              <a class="btn btn-primary btn-sm" href="/books/update-book/{{i.id}}">
+                <i class="fa fa-pencil-square-o fa-x" aria-hidden="true"></i> Edit</a
+              >
+              &nbsp;
+              <a
+                class="btn btn-danger"
+                href="/books/delete-book/{{i.id}}"
+                onclick="return confirm('Are you sure to delete this book?')"
+              >
+                <i class="fa fa-trash fa-2x" aria-hidden="true"></i
+              ></a>
+            </td>
+            <td>
+              <a
+                class="btn btn-danger"
+                href="/books/issue-book/{{i.id}}"
+                onclick="return confirm('Are you sure to issue this book?')"
+                >Issue to User</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
