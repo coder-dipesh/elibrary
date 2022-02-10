@@ -7,6 +7,10 @@
   }
 </style>
 
+{% if count == 0 %}
+<h2 class="text-center mt-4 p-3 text-dark text-uppercase" style="margin-bottom: 27rem">No Books to show.</h2>
+{% else %}
+
 <div class="container-fluid" id="m-container2" style="min-height: 100vh">
   <h1 class="d-flex justify-content-center p-3 text-dark">All Books</h1>
   <div class="row justify-content-around">
@@ -47,4 +51,6 @@
     {% endfor %}
   </div>
 </div>
+</div>
+{% endif %}
 {% endblock content %}

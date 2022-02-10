@@ -1,0 +1,50 @@
+{% extends 'layout.html' %} {% block title %}
+<title>My Cart</title>
+{% endblock%} {% block content %} {% if count == 0 %}
+
+<h2 class="text-center mt-4 p-3 text-dark text-uppercase" style="margin-bottom: 27rem">Your Cart is Empty</h2>
+
+{% else %}
+<div class="container5" id="m-container5" style="min-height: 100vh">
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <h1 class="text-center mt-4 p-3 text-dark">My Cart</h1>
+      {% include 'message.html' %}
+      <div class="card py-2 px-2">
+        <table class="table-striped">
+          <tr>
+            <th>Book Name</th>
+            <th>Book Price</th>
+            <th>Date Added</th>
+            <th>Actions</th>
+          </tr>
+          {% for i in items %}
+          <tr>
+            <td>{{ i.book.book_name }}</td>
+            <td>{{ i.book.book_price }}</td>
+            <td>{{ i.created_date }}</td>
+            <td>
+              <a
+                class="btn btn-primary btn-sm m-2"
+                onclick="return confirm('Are you sure you want to remove the book from your cart?')"
+                href="/books/remove-cart-items/{{i.id}}"
+                >Remove</a
+              >
+              &nbsp;
+              <a
+                class="btn btn-danger btn-sm"
+                href="/books/order-form/{{i.book.id}}/{{i.id}}"
+                onclick="return confirm('Are you sure want to order this book?')"
+                >Order</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

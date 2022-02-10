@@ -73,7 +73,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link {{activate_myorders}}" href="/books/user_all_order">Orders</a>
+          <a class="nav-link {{activate_myorders}}" href="/books/user-all-order">Orders</a>
         </li>
 
         <li class="nav-item">
@@ -82,11 +82,11 @@
       </ul>
 
       <ul class="d-flex navbar-nav mb-2 mb-lg-0">
-        <!-- <li class="nav-item">
-          <a class="notification nav-link {{activate_my_cart}}" href="/books/mycart"
-            >Cart <i class="fa fa-cart-plus" aria-hidden="true"></i> <span class="badge"></span></a
-          >
-        </li> -->
+        <li class="nav-item">
+          <a class="notification nav-link {{activate_my_cart}}" href="/books/show-cart-items"
+            >Cart <i class="fa fa-cart-plus" aria-hidden="true"></i> <span class="badge"></span
+          ></a>
+        </li>
 
         {% if user.is_authenticated %}
         <li class="nav-item dropdown">
@@ -99,8 +99,7 @@
             aria-expanded="false"
           >
             <img src="/{{request.user.profile.profile_pic}}" width="35" alt="..." />
-            {{request.user.profile.firstname}}
-            {{request.user.profile.lastname}} 
+            {{request.user.profile.firstname}} {{request.user.profile.lastname}}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
@@ -120,12 +119,12 @@
             </li>
 
             <li>
-              <a class="dropdown-item" href="/books/my_pending_order"
+              <a class="dropdown-item" href="/books/my-pending-order"
                 ><i class="fas fa-user pe-3 fa-sm"></i>My Pending Orders</a
               >
             </li>
             <li>
-              <a class="dropdown-item" href="/books/my_approved_order"
+              <a class="dropdown-item" href="/books/my-approved-order"
                 ><i class="fas fa-user pe-3 fa-sm"></i>My Approved Orders</a
               >
             </li>
@@ -142,7 +141,7 @@
 
         <!-- To add space in right -->
         <li class="nav-item">
-          <a class="l-btn nav-link btn-lg mx-2 mr-auto text-dark" href="">  </a>
+          <a class="l-btn nav-link btn-lg mx-2 mr-auto text-dark" href=""> </a>
         </li>
 
         {% else %}
