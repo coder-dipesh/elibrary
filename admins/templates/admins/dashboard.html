@@ -4,92 +4,128 @@
 
 {% endblock title %} {% block content %}
 
-
 <style>
-    .card-body a{
-    text-decoration:none;
-    color:#fff;
-    }
+  body {
+    background-color: #353a40;
+  }
+  .card-body a {
+    text-decoration: none;
+    color: #fff;
+  }
 
-    .card-body a:hover{
-    color:orange;
-    }
+  .card-body a:hover {
+    color: orange;
+  }
+  .card {
+  }
 </style>
 
-
-<div class="container-fluid"  style="min-height:100vh;">
-    <h1 class="d-flex justify-content-center p-5">ADMIN DASHBOARD</h1>
-    {% include 'message.html' %}
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card text-white bg-info mb-3" style="max-width: 35rem;">
-                <div class="card-header text-center">All Categories</div>
-                <div class="card-body">
-                    <a href="/books/get_category">
-                        <h1 class="card-title text-center">{{category}}</h1></a>
+<div class="container-fluid" style="min-height: 100vh">
+  <h1 class="d-flex justify-content-center p-5" style="color: #5bc3ee">ADMIN DASHBOARD</h1>
+  {% include 'message.html' %}
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-xl-4 mb-4">
+      <a href="/books/get-category">
+        <div class="card shadow-lg border-0 py-2">
+          <div class="card-body">
+            <div class="row align-items-center no-gutters">
+              <div class="col me-2">
+                <div class="text-secondary fw-normal display-6 h5 mb-0">
+                  <span> Categories: <span class="text-dark">{{ totalCategories }}</span></span>
                 </div>
+              </div>
+              <div class="col-auto" style="color: black"><i class="fas fa-table fa-3x"></i></div>
             </div>
+          </div>
         </div>
-
-        <div class="col-md-4">
-            <div class="card text-white bg-primary mb-3" style="max-width: 35rem;">
-
-                <div class="card-header text-center">Total Books</div>
-                <div class="card-body">
-                    <a href="/books/get_book">
-                        <h1 class="card-title text-center">{{book}}</h1></a>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-4">
-            <div class="card text-white bg-primary mb-3" style="max-width: 35rem;">
-                <div class="card-header text-center">Ordered Books</div>
-                <div class="card-body">
-                    <a href="/admins/all_order">
-                        <h1 class="card-title text-center">{{book}}</h1></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card text-white bg-warning mb-3" style="max-width: 35rem;">
-                    <div class="card-header text-center">Total Author</div>
-                    <div class="card-body">
-                        <a href="/books/get_authors">
-                            <h1 class="card-title text-center">{{author}}</h1>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card text-white bg-success mb-3" style="max-width: 35rem;">
-                    <div class="card-header text-center">Total Users</div>
-                    <div class="card-body">
-                        <a href="/admins/users">
-                            <h1 class="card-title text-center">{{user}}</h1></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card text-white bg-danger mb-3" style="max-width: 35rem;">
-                    <div class="card-header text-center">Total Admins</div>
-                    <div class="card-body">
-                        <a href="/admins/admins">
-                            <h1 class="card-title text-center">{{admin}}</h1>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </a>
     </div>
+
+    <div class="col-lg-6 col-md-6 col-xl-4 mb-4">
+      <a href="/books/get-book">
+        <div class="card shadow border-0 py-2">
+          <div class="card-body">
+            <div class="row align-items-center no-gutters">
+              <div class="col me-2">
+                <div class="text-secondary fw-normal display-6 h5 mb-0">
+                  <span> Books: <span class="text-dark">{{ totalBooks }}</span></span>
+                </div>
+              </div>
+              <div class="col-auto" style="color: black"><i class="fas fa-book fa-3x"></i></div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-xl-4 mb-4">
+      <a href="/admins/all-orders">
+        <div class="card shadow border-0 py-2">
+          <div class="card-body">
+            <div class="row align-items-center no-gutters">
+              <div class="col me-2">
+                <div class="text-secondary fw-normal display-6 h5 mb-0">
+                  <span> Order Books: <span class="text-dark">{{ totalOrders }}</span></span>
+                </div>
+              </div>
+              <div class="col-auto" style="color: black"><i class="fas fa-box-open fa-3x"></i></div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-xl-4 mb-4">
+      <a href="/books/get-author">
+        <div class="card shadow border-0 py-2">
+          <div class="card-body">
+            <div class="row align-items-center no-gutters">
+              <div class="col me-2">
+                <div class="text-secondary fw-normal display-6 h5 mb-0">
+                  <span> Authors: <span class="text-dark">{{ totalAuthors}}</span></span>
+                </div>
+              </div>
+              <div class="col-auto" style="color: black"><i class="fas fa-user-tie fa-3x"></i></div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-xl-4 mb-4">
+      <a href="/admins/all-users">
+        <div class="card shadow border-0 py-2">
+          <div class="card-body">
+            <div class="row align-items-center no-gutters">
+              <div class="col me-2">
+                <div class="text-secondary fw-normal display-6 h5 mb-0">
+                  <span> Users: <span class="text-dark">{{ totalUsers }}</span></span>
+                </div>
+              </div>
+              <div class="col-auto" style="color: black"><i class="fas fa-user fa-3x"></i></div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-xl-4 mb-4">
+      <a href="/admins/all-admins">
+        <div class="card shadow border-0 py-2">
+          <div class="card-body">
+            <div class="row align-items-center no-gutters">
+              <div class="col me-2">
+                <div class="text-secondary fw-normal display-6 h5 mb-0">
+                  <span> Admins: <span class="text-dark">{{ totalAdmins }}</span></span>
+                </div>
+              </div>
+              <div class="col-auto" style="color: black"><i class="fas fa-user-shield fa-3x"></i></div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
 </div>
-
-
-
 
 {%endblock content %}

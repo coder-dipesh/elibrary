@@ -1,17 +1,27 @@
-from django.contrib.auth import authenticate, login, logout
+from multiprocessing import context
+from django.contrib.auth import authenticate,logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import CreateUserForm, ProfileForm
+
+from books.models import Book
+from .forms import CreateUserForm, ProfileForm, ContactForm
 from django.contrib import auth
-from accounts.auth import unauthenticated_user, admin_only, user_only
+from accounts.auth import unauthenticated_user, user_only
 from django.contrib.auth.decorators import login_required
 from .models import Profile
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-# Create your views here.
+
+# To send mail to admin via contact form
+from django.core.mail import mail_admins
+
 
 def homepage(request):
-    return render(request, 'accounts/homepage.html')
+    books = Book.objects.all().order_by('-id')[:7]
+    context = {
+        'books': books
+    }
+    return render(request, 'accounts/homepage.html', context)
 
 @unauthenticated_user
 def signin(request):
@@ -66,7 +76,6 @@ def signout(request):
     return redirect('/signin')
 
 
-
 @login_required
 @user_only
 def getProfile(request):
@@ -96,8 +105,8 @@ def updateUserProfile(request):
     return render(request, 'accounts/updateUserProfile.html', context)
 
 
-
 @login_required
+@user_only
 def changePassword(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
@@ -115,3 +124,22 @@ def changePassword(request):
 
     }
     return render(request, 'accounts/changePassword.html', context)
+
+
+def contactUs(request):
+    if request.method == 'POST':
+        f = ContactForm(request.POST)
+
+        if f.is_valid():
+            name = f.cleaned_data['name']
+            sender = f.cleaned_data['email']
+            subject = "You have a new Message from {}:{}".format(name, sender)
+            message = "Message: {}".format(f.cleaned_data['message'])
+            mail_admins(subject, message)
+            f.save()
+            messages.add_message(request, messages.SUCCESS, 'Your Message Submitted Successfully.')
+            return redirect('/contact-us')
+
+    else:
+        f = ContactForm()
+    return render(request, 'accounts/contactUs.html', {'form': f})

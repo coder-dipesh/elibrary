@@ -1,51 +1,53 @@
-{% extends 'admin_layout.html' %} {% load bootstrap %} {% block title %}
+{% extends 'admin_layout.html' %} {% load bootstrap %} {% load crispy_forms_tags %} {% block title %}
 
-<title>All Author</title>
+<title>All Authors | eLibrary Admin</title>
 {% endblock%} {% block content %}
 <div class="container-fluid" style="min-height: 100vh">
   <div class="row">
     <div class="col-md-10 offset-md-1">
-      <h1 class="text-center">All Author</h1>
+      <h1 class="text-center mt-4">All Author</h1>
       {% include 'message.html' %}
-      <div class="card py-2 px-2">
-        <a class="btn btn-primary btn-sm ms-auto mb-2" href="/books/author-form">Add New Author</a>
+      <div class="card py-2 px-2 shadow">
+        <a class="btn btn-primary ms-auto mb-4 shadow w-100" href="/books/author-form"><i class="fas fa-plus-circle"></i> Add New Author</a>
 
-        <div class="card card-body">
-          <form class="form myForm mt-4" method="get">
-            {{ author_filter.form | bootstrap_horizontal }}
-            <button type="submit" class="btn btn-primary btn-sm mt-3">Search</button>
+        <div class="card card-body"> 
+          <form class="form myForm mt-4 " method="get">
+            {{ author_filter.form | crispy }}
+            <button type="submit" class="btn btn-secondary search_btn mt-3 shadow">Search</button>
           </form>
         </div>
-        <table class="table-striped">
-          <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
-            <th>Image</th>
-            <th>Actions</th>
-          </tr>
-          {% for i in authors %}
-          <tr>
-            <td>{{ i.firstname }}</td>
-            <td>{{ i.lastname }}</td>
-            <td>{{ i.email }}</td>
-            <td><img src="/{{i.profile_pic}}" width="200" /></td>
-            <td>
-              <a href="/books/update-author/{{i.id}}" class="btn btn-primary btn-sm">
-                <i class="fa fa-pencil-square-o fa-x" aria-hidden="true"></i> Edit</a
-              >
-              &nbsp;
-              <a
-                href="/books/delete-author/{{i.id}}"
-                class="btn btn-danger btn-sm"
-                onclick="return confirm('Are you sure want to delete this author?')"
-              >
-                <i class="fa fa-trash fa-2x" aria-hidden="true"></i
-              ></a>
-            </td>
-          </tr>
-          {% endfor %}
-        </table>
+        <div class="table-responsive shadow mb-2 mt-2 p-2">
+          <table class="table table-striped mt-4">
+            <tr>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Email</th>
+              <th>Image</th>
+              <th>Actions</th>
+            </tr>
+            {% for i in authors %}
+            <tr>
+              <td>{{ i.firstname }}</td>
+              <td>{{ i.lastname }}</td>
+              <td>{{ i.email }}</td>
+              <td><img src="/{{i.profile_pic}}" style="object-fit: cover" width="100" height="100" /></td>
+              <td>
+                <a class="btn text-white mt-2 shadow" href="/books/update-author/{{i.id}}" style="background-color: #5bc3ee">
+                  <i class="fa fa-pencil-square-o fa-x" aria-hidden="true"></i>
+                </a>
+                <a
+                  class="btn text-white mt-2 shadow"
+                  href="/books/delete-author/{{i.id}}"
+                  onclick="return confirm('Are you sure to remove this author?')"
+                  style="background-color: #dd4e67"
+                >
+                  <i class="fa fa-trash fa-x" aria-hidden="true"> </i>
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
       </div>
     </div>
   </div>

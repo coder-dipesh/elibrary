@@ -30,7 +30,7 @@ def categoryForm(request):
             return render(request, 'books/categoryForm.html', {'form_category': form})
     context = {
         'form_category': CategoryForm,
-        'activate_category': 'active',
+        'activate_category': 'active bg-dark',
     }
     return render(request , 'books/categoryForm.html', context)
 
@@ -40,7 +40,7 @@ def getCategory(request):
     categories = Category.objects.all().order_by('-id')
     context = {
         'categories': categories,
-        'activate_category': 'active'
+        'activate_category': 'active bg-dark'
     }
     return render(request, 'books/getCategory.html', context)
 
@@ -60,7 +60,7 @@ def categoryUpdateForm(request,category_id):
         form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'Category added Successfully')
+            messages.add_message(request, messages.SUCCESS, 'Category updated Successfully')
             return redirect("/books/get-category")
         else:
             messages.add_message(request, messages.ERROR, 'Unable to update Category')
@@ -68,10 +68,10 @@ def categoryUpdateForm(request,category_id):
 
     context = {
         'form_category': CategoryForm(instance=category),
-        'activate_category': 'active',
+        'activate_category': 'active bg-dark',
     }
 
-    return render(request , 'books/categoryForm.html', context)
+    return render(request , 'books/categoryUpdateForm.html', context)
 
 @login_required
 @user_only
@@ -110,7 +110,7 @@ def bookForm(request):
 
     context = {
         'form_book': BookForm,
-        'activate_book': 'active',
+        'activate_books': 'active bg-dark',
     }
     return render(request, 'books/bookForm.html', context)
 
@@ -123,7 +123,7 @@ def getBook(request):
     books_final = book_filter.qs
     context = {
         'books': books_final,
-        'activate_book': 'active',
+        'activate_books': 'active bg-dark',
         'book_filter': book_filter
     }
     return render(request, 'books/getBook.html', context)
@@ -152,7 +152,7 @@ def bookUpdateForm(request, book_id):
 
     context = {
         'form_book': BookForm(instance=book),
-        'activate_book': 'active',
+        'activate_books': 'active bg-dark',
     }
     return render(request, 'books/bookUpdateForm.html', context)
 
@@ -194,7 +194,7 @@ def authorForm(request):
 
     context = {
         'form_author': AuthorForm,
-        'activate_author': 'active'
+        'activate_authors': 'active bg-dark'
     }
     return render(request, 'books/authorForm.html', context)
 
@@ -208,7 +208,7 @@ def getAuthor(request):
 
     context = {
         'authors': authors_final,
-        'activate_author': 'active',
+        'activate_authors': 'active bg-dark',
         'author_filter': author_filter,
     }
     return render(request, 'books/getAuthor.html', context)
@@ -220,7 +220,7 @@ def deleteAuthor(request, author_id):
     author = Author.objects.get(id=author_id)
     author.delete()
     messages.add_message(request, messages.SUCCESS, 'Author deleted successfully')
-    return redirect('books/get-author')
+    # return redirect('books/get-author')
 
 @login_required
 @admin_only
@@ -235,7 +235,7 @@ def updateAuthor(request, author_id):
             return render(request, 'books/authorUpdateForm.html', {'form_author': form})
     context = {
         'form_author': AuthorForm(instance=author),
-        'activate_author': 'active'
+        'activate_authors': 'active bg-dark',
     }
     return render(request, 'books/authorUpdateForm.html', context)
 
@@ -409,7 +409,6 @@ def cancelOrder(request, order_id):
     return redirect('/books/my-pending-order')
 
 
-
 @login_required
 @user_only
 def returnedOrder(request):
@@ -424,3 +423,9 @@ def returnedOrder(request):
         'activate_myorders': 'active'
     }
     return render(request, 'books/returnedOrder.html', context)
+
+# ===================================================
+# ========= END ALL, PENDING, APPROVED ORDERS =======
+# ===================================================
+
+

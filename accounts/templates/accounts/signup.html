@@ -1,4 +1,4 @@
-{% extends 'layout.html' %} {% load bootstrap %} {% load crispy_forms_tags %} {% block title %}
+{% extends 'layout.html' %} {% load static %} {% load bootstrap %} {% load crispy_forms_tags %} {% block title %}
 <title>Login</title>{%endblock%} {% block content %}
 
 <style>
@@ -45,18 +45,32 @@
   .form-input input::placeholder {
     padding-left: 5px;
   }
+
+  .login-link {
+    color: #007bff;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .login-link:hover {
+    color: #0069d9;
+    text-decoration: underline;
+
+  }
 </style>
 
 <section class="vh-100 bg-image" style="background-color: #508bfc">
   <div class="mask d-flex align-items-center h-100">
     <div class="container py-2 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="row d-flex justify-content-center align-items-center mt-4">
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
           {% include 'message.html'%}
 
           <div class="card" style="border-radius: 15px">
-            <div class="card-body p-5">
-              <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+            <div class="card-body p-3">
+              <div class="d-flex justify-content-center">
+                <img class="mt-0" src="{% static 'images/elibtransparent.png' %}" alt="" />
+              </div>
 
               <form method="POST" class="form form-box px-3" id="signup-form">
                 {% csrf_token %}
@@ -88,11 +102,11 @@
                 </div>
 
                 <div class="d-flex justify-content-center">
-                  <button type="submit" class="btn btn-primary btn-block btn-lg">Sign Up</button>
+                  <button type="submit" class="btn btn-primary btn-block btn-lg w-100 mt-4">Sign Up</button>
                 </div>
 
-                <p class="text-center text-muted mt-5 mb-0">
-                  Have already an account? <a href="/signin" class=""><u>Login here</u></a>
+                <p class="text-center  text-muted mt-5 mb-0">
+                  Have already an account? <a href="/signin" class="login-link">Login Here</a>
                 </p>
               </form>
             </div>
