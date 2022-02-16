@@ -1,97 +1,84 @@
-p.help-block, .myForm ul li{font-size:12px;}
-
-.myForm label.control-label, .myForm div{width:100%;}
-
-
-.search_form{
-position: relative;
+p.help-block,
+.myForm ul li {
+  font-size: 12px;
 }
 
+.myForm label.control-label,
+.myForm div {
+  width: 100%;
+}
+
+.search_form {
+  position: relative;
+}
 
 .search-btn {
-position: absolute;
-right: 30px;
-top: 16px;}
-
-
-
-#last{
-    padding: 20px 0px 40px 0px;
-    background-color: black;
-    text-align: center;
+  position: absolute;
+  right: 30px;
+  top: 16px;
 }
 
-#last>p{
-    color: #ffffff;
-    padding: 20px;
+#last {
+  padding: 20px 0px 40px 0px;
+  background-color: black;
+  text-align: center;
 }
 
-
-#last>p>a:hover{
-    cursor: pointer;
-    color: gray;
-    text-decoration: underline;
+#last > p {
+  color: #ffffff;
+  padding: 20px;
 }
 
-#last i{
-    background-color: #ffffff;
-    padding: 3px;
-    margin: 3px;
-    border-radius: 60px;
-    cursor: pointer;
+#last > p > a:hover {
+  cursor: pointer;
+  color: gray;
+  text-decoration: underline;
 }
 
-#last i:hover{
-    background-color: #77a12d;
+#last i {
+  background-color: #ffffff;
+  padding: 3px;
+  margin: 3px;
+  border-radius: 60px;
+  cursor: pointer;
 }
 
+#last i:hover {
+  background-color: #77a12d;
+}
 
-#m-container{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('/static/images/pic2.jfif');
-    height: 100%;
-    background-position: center;
+#m-container {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/images/pic2.jfif");
+  height: 100%;
+  background-position: center;
 
-    background-size: cover;
-    position: relative;
-    }
+  background-size: cover;
+  position: relative;
+}
 
+#m-container2 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/images/pic2.jfif");
+  height: 100%;
+  background-position: center;
 
-#m-container2{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('/static/images/pic2.jfif');
-    height: 100%;
-    background-position: center;
+  background-size: cover;
+  position: relative;
+}
 
-    background-size: cover;
-    position: relative;
-    }
+#m-container3 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/images/pic8.jfif");
+  height: 100%;
+  background-position: center;
 
-#m-container3{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('/static/images/pic8.jfif');
-    height: 100%;
-    background-position: center;
+  background-size: cover;
+  position: relative;
+}
 
-    background-size: cover;
-    position: relative;
-    }
+#m-container7 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/images/pic11.jpg");
+  height: 100%;
+  background-position: center;
 
-#m-container7{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('/static/images/pic11.jpg');
-    height: 100%;
-    background-position: center;
-
-    background-size: cover;
-    position: relative;
-    }
-
-
-
-
-
-
-
-
-
+  background-size: cover;
+  position: relative;
+}

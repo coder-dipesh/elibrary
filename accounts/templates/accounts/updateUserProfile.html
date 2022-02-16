@@ -23,7 +23,7 @@
 
   .requiredField {
     font-weight: 600;
-    font-family: Poppins;
+    font-family: "Manrope", sans-serif;
     font-size: 16px;
     color: #242f65;
   }
@@ -35,7 +35,7 @@
   #id_profile_pic {
     color: #70798b;
     font-weight: 400;
-    font-family: Poppins;
+    font-family: "Manrope", sans-serif;
     font-size: 16px;
   }
 
@@ -48,30 +48,26 @@
     margin: 1em;
   }
 
-    .form-group span {
+  .form-group span {
     color: #dd4b39;
   }
 </style>
 
-<div style="margin-top: 1rem">
-
-  <div class="container mb-4">
-    <div class="row px-3">
-      <h4 class="text-center">Update Profile</h4>
-      <div class="card col-lg-10 col-xl-9 card flex-row mx-auto px-0">
-        <div class="card-body">
-          <form class="form-box px-3 uniForm" method="POST" enctype="multipart/form-data">
-            {% csrf_token %} {{ profileUpdateForm|crispy }}
-            <button type="submit" class="btn btn-primary text-uppercase my-2">Submit</button>
-          </form>
-        </div>
+<div class="container mb-5 mt-5">
+  <h1 class="text-center mb-5">
+    Update Profile
+  </h1>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      {% include 'message.html' %}
+      <div class="card form-box-shadow py-4 px-4">
+        <form class="form " action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %} {{ profileUpdateForm|crispy }}
+          <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
 
 {% endblock content %}

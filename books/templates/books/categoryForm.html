@@ -1,17 +1,23 @@
-{% extends 'admin_layout.html' %} {% load bootstrap %} {% block title %}
+{% extends 'admin_layout.html' %} {% load bootstrap %} {% load crispy_forms_tags %} {% block title %}
 <title>Add Category</title>
 {% endblock%} {% block content %}
-<style></style>
+<style>
 
-<div class="container-fluid" id="m-container" style="min-height: 100vh">
+    .asteriskField {
+        color: red;
+    }
+
+</style>
+
+<div class="container-fluid shadow" id="m-container" style="min-height: 100vh">
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <h1 class="text-center mt-4 p-4 myForm text-dark">Add New Category</h1>
       {% include 'message.html' %}
-      <div class="card py-2 px-2">
+      <div class="card shadow py-2 px-2">
         <form class="form myForm mt-4" method="POST" enctype="multipart/form-data">
-          {% csrf_token %} {{ form_category | bootstrap_horizontal }}
-          <button type="submit" class="btn btn-primary mt-3">Submit</button>
+          {% csrf_token %} {{ form_category | crispy }}
+          <button type="submit" class="btn btn-primary mt-3 shadow">Submit</button>
         </form>
       </div>
     </div>
@@ -21,7 +27,6 @@
 <script>
   var form_fields = document.getElementsByTagName("input");
   form_fields[1].placeholder = "Category Name";
-  form_fields[2].placeholder = "Category Description";
 
   for (field in form_fields) {
     form_fields[field].className += " my-3";

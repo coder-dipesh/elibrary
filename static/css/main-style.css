@@ -1,4 +1,4 @@
-/*==============================Recently added=============================================*/
+
 #featured {
   background-color: antiquewhite;
   background-image: url("/static/images/topBooks.jpg");
@@ -7,7 +7,6 @@
   background-size: cover;
 }
 
-/*======================================== testimonials=================================*/
 #eight {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/images/carousel3.jpg");
   padding: 50px;
@@ -38,7 +37,6 @@
   object-fit: cover;
   height: 12em;
   width: 12em;
-
 }
 
 .client h2 {
@@ -49,4 +47,10 @@
   font-weight: lighter;
   font-size: 20px;
   padding: 10px;
+}
+
+
+#user-data {
+  padding: 20px;
+  border-bottom: 2px solid #77a12d;
 }

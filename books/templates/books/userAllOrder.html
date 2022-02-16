@@ -5,7 +5,7 @@
 {% block content %}
 
 {% if count == 0 %}
-<h2 class="text-center mt-4 p-3 text-dark text-uppercase" style="margin-bottom: 27rem">You haven't order any books yet</h2>
+<h2 class="text-center mt-4 p-3 text-dark text-uppercase" style="margin-bottom: 27rem">You haven't order any books yet.</h2>
 {% else %}
 <div class="container-fluid" id="m-container6" style="min-height:100vh;">
     <div class="row">
@@ -14,6 +14,7 @@
             {% include 'message.html' %}
             <div class="card shadow-lg ">
                 <div class="card-body">
+                    <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                         <tr>
@@ -45,7 +46,7 @@
                         {% endfor %}
                         </tbody>
                     </table>
-
+</div>
                 </div>
             </div>
         </div>

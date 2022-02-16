@@ -1,29 +1,26 @@
 {% extends 'admin_layout.html' %}
 {% load bootstrap %}
+{% load crispy_forms_tags %}
 {% block title %}
-<title>Add Author</title>
+<title>Add Author  | eLibrary Admin</title>
 {% endblock%}
 {% block content %}
 <style>
-    p.help-block{
-        color:#abc;
-    }
-
-    span.help-block{
-        color:red;
+    .asteriskField {
+        color: red;
     }
 
 </style>
-<div class="container-fluid"  id="m-container3" style="min-height:100vh;">
+<div class="container-fluid" style="min-height:100vh;">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h1 class="text-center mt-4 p-4 myForm text-white">Add New Author</h1>
+            <h1 class="text-center mt-4 p-4 text-dark">Add New Author</h1>
             {% include 'message.html' %}
-            <div class="card py-2 px-2">
+            <div class="card py-2 px-4 shadow">
                 <form class=" form myForm mt-4" action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ form_author | bootstrap_horizontal }}
-                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                    {{ form_author | crispy }}
+                    <button type="submit" class="btn btn-primary mt-3 mb-3 shadow">Submit</button>
                 </form>
             </div>
         </div>

@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
 ]
 
 ROOT_URLCONF = 'elibrary.urls'
@@ -157,3 +158,9 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'elibrary.estudy@gmail.com'
 EMAIL_HOST_PASSWORD = 'bmsfbfwuhjmlmzuh'
+
+
+ADMINS = [    
+    ('E-Library', 'elibrary.estudy@gmail.com'),
+    ('Dipesh Siwakoti', 'dipeshsiwakoti112@gmail.com'),
+]

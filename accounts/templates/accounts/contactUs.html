@@ -1,0 +1,108 @@
+{% extends 'layout.html' %} {% load static %} {% block title %}
+<title>Contact Us</title>
+{% endblock %} {% block content %}
+
+<style>
+  .card-header i {
+    color: #5bc3ee;
+  }
+  .card-header:hover i {
+    transition: 0.8s all-ease-in-out;
+    color: #4da3d6;
+  }
+  #user-data {
+    outline: none;
+    border-radius: 3px;
+    border: 0;
+    width: 100%;
+    height: 45px;
+    position: relative;
+    border-bottom: 1px solid #b2b2b2;
+    margin-bottom: 26px;
+    line-height: 1.2;
+    text-align: left;
+    background: transparent;
+    padding: 0 5px;
+  }
+  #message {
+    outline: none;
+    border-radius: 3px;
+    border: 0;
+    width: 100%;
+    height: 150px;
+    border-bottom: 1px solid #b2b2b2;
+    margin-bottom: 26px;
+    line-height: 1.2;
+    text-align: left;
+    background: transparent;
+    padding: 0 5px;
+  }
+  #message:focus {
+    border-bottom: 3px solid #ff0b0b;
+  }
+  #user-data:focus {
+    border-bottom: 3px solid #5bc3ee;
+  }
+  #submit {
+    border-radius: 5px;
+    width: 12rem;
+    background-color: #5bc3ee;
+    color: #fff;
+  }
+  #submit:hover {
+    background-color: #4da3d6;
+  }
+  #submit:hover i {
+    -webkit-transform: translateX(10px);
+    -moz-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    -o-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+</style>
+<div class="container-fluid d-flex justify-content-center py-4">
+  <div class="row">
+    <div class="col-md-8 col-lg-8 col-xl-10 mx-auto">
+{% include 'message.html' %}
+
+      <div class="card shadow mt-4">
+        <div class="card-header card-title text-center py-4">
+          <h1>Contact Us</h1>
+          <span class="py-4 mt-4">
+            <a href="https://www.facebook.com/dipeshsiwakoti112" target="_blank"
+              ><i class="fab fa-facebook-square fa-2x mt-4 mx-2"></i
+            ></a>
+            <a href="https://twitter.com/DipeshSiwakoti" target="_blank"
+              ><i class="fab fa-twitter-square fa-2x mx-2"></i
+            ></a>
+            <a href="https://www.instagram.com/dipesh__siwakoti/" target="_blank"
+              ><i class="fab fa-instagram-square fa-2x mx-2"></i
+            ></a>
+          </span>
+        </div>
+        <div class="card-body py-4">
+          <form method="POST">
+            {% csrf_token %}
+            <input type="text" class="mt-4" name="name" id="user-data" placeholder="Your Name" />
+            <input type="email" class="mt-2" name="email" id="user-data" placeholder="Your Email" />
+            <textarea
+              name="message"
+              class="mt-2"
+              placeholder="Your Message"
+              id="message"
+              cols="30"
+              rows="10"
+            ></textarea>
+
+            <button type="submit" id="submit" class="btn py-2 px-2">
+              SEND MESSAGE
+              <i class="fa fa-long-arrow-right"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

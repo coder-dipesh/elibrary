@@ -2,42 +2,51 @@
 
 <style>
   body {
-    font-family: Poppins;
+    font-family: "Manrope", sans-serif;
   }
   .l-btn {
+    font-weight: 700;
     color: #ffffff;
     opacity: 1;
   }
+  .main-nav {
+    position: relative;
+  }
 
   .s-btn {
+    position: absolute;
+    display: block;
+    float: right;
+    right: 0;
+    padding: 0.5rem 1rem;
     text-decoration: none;
     margin-right: 2em;
     color: #ffffff;
   }
   .s-btn:hover {
-    color: #00eeb6;
+    color: #5bc3ee;
+  }
+  .l-btn i {
+    padding-left: 10px;
   }
 
-  .notification {
-    color: white;
-    text-decoration: none;
-    padding: 8px 18px;
-    position: relative;
-    display: inline-block;
-  }
+  @media (max-width: 991px) {
+    .l-btn i {
+      padding-left: 18px;
+    }
 
-  .notification .badge {
-    position: absolute;
-    top: -4px;
-    right: -10px;
-    padding: 2px 6px;
-    border-radius: 80%;
-    background: red;
-    color: white;
+    .s-btn {
+      position: unset;
+      padding: unset;
+      color: #ffffff;
+    }
+    .s-btn:hover {
+      color: #5bc3ee;
+    }
   }
 </style>
 
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark main-nav">
   <div class="container-fluid overlay" id="navbar">
     <a id="logo" class="navbar-brand" href="/">
       <img src="{% static 'images/elibtransparent.png' %}" alt="eLibrary" width="64" height="64" />
@@ -54,11 +63,14 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item topnav">
           <a class="nav-link" aria-current="page" href="/"> Home</a>
         </li>
+
+        {% if user.is_authenticated %}
 
         <li class="nav-item">
           <a class="nav-link {{activate_category_user}}" href="/books/show-categories-user">Category</a>
@@ -77,19 +89,19 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link {{activate_contact}}" href="/admins/getContacts">Contact Us</a>
+          <a class="nav-link {{activate_contact}}" href="/contact-us">Contact Us</a>
         </li>
       </ul>
 
-      <ul class="d-flex navbar-nav mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="notification nav-link {{activate_my_cart}}" href="/books/show-cart-items"
-            >Cart <i class="fa fa-cart-plus" aria-hidden="true"></i> <span class="badge"></span
-          ></a>
-        </li>
+      <ul class="d-flex nav-item navbar-nav mb-lg-0">
+        <a
+          class="nav-link mt-2 {{activate_my_cart}}"
+          href="/books/show-cart-items"
+          style="padding: 0.7rem 0rem !important"
+          >Cart <i class="fa fa-cart-plus" aria-hidden="true"></i
+        ></a>
 
-        {% if user.is_authenticated %}
-        <li class="nav-item dropdown">
+        <li class="nav-item nav-link dropdown">
           <a
             class="nav-link dropdown-toggle"
             href=""
@@ -120,12 +132,12 @@
 
             <li>
               <a class="dropdown-item" href="/books/my-pending-order"
-                ><i class="fas fa-user pe-3 fa-sm"></i>My Pending Orders</a
+                ><i class="fas fa-spinner pe-2"></i> My Pending Orders</a
               >
             </li>
             <li>
               <a class="dropdown-item" href="/books/my-approved-order"
-                ><i class="fas fa-user pe-3 fa-sm"></i>My Approved Orders</a
+                ><i class="fas fa-thumbs-up fa-sm pe-2"> </i> My Approved Orders</a
               >
             </li>
 
@@ -134,7 +146,13 @@
             </li>
 
             <li class="nav-item">
-              <a class="l-btn nav-link btn btn-sm btn-danger mx-2 mr-auto text-white" href="/signout">Log Out</a>
+              <a
+                class="l-btn nav-link text-danger mr-auto dropdown-item pe-2"
+                data-bs-toggle="modal"
+                data-bs-target="#reg-modal"
+              >
+                <i class="fas fa-sign-out-alt pe-2"></i> Log Out
+              </a>
             </li>
           </ul>
         </li>
@@ -146,6 +164,9 @@
 
         {% else %}
         <li class="nav-item">
+          <a class="nav-link {{activate_contact}}" href="/contact-us">Contact Us</a>
+        </li>
+        <li class="d-flex nav-item">
           <a class="s-btn" href="/signin">
             Sign In
             <i class="fas fa-sign-in-alt"></i>
@@ -157,3 +178,21 @@
     </div>
   </div>
 </nav>
+
+<div class="modal fade" id="reg-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="modal-title">
+          <i class="fas fa-exclamation-triangle pe-2"></i> You are about to logout!
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-footer">
+        <a href="/signout" class="btn" style="color: #fff; background-color: #5bc3ee">Ok</a>
+        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-danger">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

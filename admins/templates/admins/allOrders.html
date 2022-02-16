@@ -1,0 +1,77 @@
+{% extends 'admin_layout.html' %}
+{% block title %}
+<title>All Orders | eLibrary Admin</title>
+{% endblock title %}
+{% block content %}
+
+<div class="container-fluid" style="min-height:100vh;">
+    <div class="row">
+        <div class="col mt-4 mb-4">
+            <h1 class="text-center text-uppercase m-4 font-weight-bold">All Order History</h1>
+            {% include 'message.html' %}
+            <div class="card shadow-lg ">
+                <div class="table-responsive card-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Item Price</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                            <th>Ordered Date</th>
+                            <th>Contact No</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody class="align-items-center">
+                        {% for item in items %}
+                        <tr>
+                            <td>{{item.book.book_name}}</td>
+                            <td>Rs. {{item.book.book_price}}</td>
+                            <td>{{item.quantity}} </td>
+                            <td>Rs. {{item.total_price}}</td>
+                            <td>{{item.created_date}}</td>
+                            <td>+977 {{item.contact_no}}</td>
+                            <td>{{item.status}}</td>
+
+                            <td>
+                                    {% if item.status == 'Pending' %}
+                              <a class="btn text-white shadow" href="/admins/approve-order/{{item.id}}" style="background-color: #00eeb6">
+                                <i class="fa fa-check fa-x" aria-hidden="true"></i>
+                                
+                              </a>
+                              <a
+                                class="btn text-white shadow"
+                                href="/admins/delete-order/{{item.id}}"
+                                onclick="return confirm('Are you sure to decline this order?')"
+                                style="background-color: #dd4e67">
+                                <i class="fa fa-times fa-x" aria-hidden="true"> </i>
+                                
+                              </a>
+                              {% elif item.status == 'Approved' %}
+                              <a class="btn btn-sm text-white shadow" style="background-color: #1b7661">
+                                <i class="fa fa-check fa-x" aria-hidden="true"></i>
+                                APPROVED
+                              </a>
+                              {% elif item.status == 'Declined' %}
+                              <a class="btn btn-sm text-white shadow" style="background-color: #bb3810">
+                                <i class="fa fa-times fa-x" aria-hidden="true"></i>
+                                DECLINED
+                              </a>
+
+                              {%endif%}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+{% endblock %}
