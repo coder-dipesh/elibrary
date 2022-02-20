@@ -1,0 +1,1 @@
+#  Since here no any models are available, we skip the test
