@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate,logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from books.models import Book
+from books.models import Book, Cart
 from .forms import CreateUserForm, ProfileForm, ContactForm
 from django.contrib import auth
 from accounts.auth import unauthenticated_user, user_only
@@ -18,10 +18,18 @@ from django.core.mail import mail_admins
 
 def homepage(request):
     books = Book.objects.all().order_by('-id')[:7]
-    context = {
-        'books': books
-    }
-    return render(request, 'accounts/homepage.html', context)
+    if request.user.is_authenticated:
+        user = request.user
+        cart_items = Cart.objects.filter(user=user)
+        cart_count = cart_items.count()
+        
+        context = {
+            'cart_count': cart_count,
+            'books': books,
+        }
+        return render(request, 'accounts/homepage.html', context)
+    else:
+        return render(request, 'accounts/homepage.html')
 
 @unauthenticated_user
 def signin(request):
@@ -80,8 +88,13 @@ def signout(request):
 @user_only
 def getProfile(request):
     profile = request.user.profile
+    user = request.user
+    cart_items = Cart.objects.filter(user=user)
+    cart_count = cart_items.count()
+    
     context = {
         'profile': profile,
+        'cart_count': cart_count,
         'activate_profile': 'active'
     }
     return render(request, 'accounts/userProfile.html', context)
@@ -91,6 +104,9 @@ def getProfile(request):
 @user_only
 def updateUserProfile(request):
     profile = request.user.profile
+    user = request.user
+    cart_items = Cart.objects.filter(user=user)
+    cart_count = cart_items.count()
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
@@ -100,6 +116,7 @@ def updateUserProfile(request):
     context = {
         'profile': profile,
         'profileUpdateForm': ProfileForm(instance=profile),
+        'cart_count': cart_count,
         'activate_profile': 'active'
     }
     return render(request, 'accounts/updateUserProfile.html', context)
@@ -108,6 +125,9 @@ def updateUserProfile(request):
 @login_required
 @user_only
 def changePassword(request):
+    user = request.user
+    cart_items = Cart.objects.filter(user=user)
+    cart_count = cart_items.count()
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -120,26 +140,27 @@ def changePassword(request):
             return redirect(request, 'accounts/changePassword.html', {'password_change_form': form})
 
     context = {
+        'cart_count': cart_count,
         'password_change_form': PasswordChangeForm(request.user),
 
     }
     return render(request, 'accounts/changePassword.html', context)
 
-
 def contactUs(request):
-    if request.method == 'POST':
-        f = ContactForm(request.POST)
+        if request.method == 'POST':
+            f = ContactForm(request.POST)
 
-        if f.is_valid():
-            name = f.cleaned_data['name']
-            sender = f.cleaned_data['email']
-            subject = "You have a new Message from {}:{}".format(name, sender)
-            message = "Message: {}".format(f.cleaned_data['message'])
-            mail_admins(subject, message)
-            f.save()
-            messages.add_message(request, messages.SUCCESS, 'Your Message Submitted Successfully.')
-            return redirect('/contact-us')
+            if f.is_valid():
+                name = f.cleaned_data['name']
+                sender = f.cleaned_data['email']
+                subject = "You have a new Message from {}:{}".format(name, sender)
+                message = "Message: {}".format(f.cleaned_data['message'])
+                mail_admins(subject, message)
+                f.save()
+                messages.add_message(request, messages.SUCCESS, 'Your Message Submitted Successfully.')
+                return redirect('/contact-us')
 
-    else:
-        f = ContactForm()
-    return render(request, 'accounts/contactUs.html', {'form': f})
+        else:
+            f = ContactForm()
+                
+        return render(request, 'accounts/contactUs.html', {'form': f})
