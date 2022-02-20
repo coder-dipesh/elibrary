@@ -73,7 +73,7 @@ def signup(request):
 @login_required
 def signout(request):
     logout(request)
-    return redirect('/signin')
+    return redirect('/')
 
 
 @login_required
