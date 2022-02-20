@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block title %}
-<title>All Orders</title>
+<title>All Orders | elLibrary</title>
 {% endblock title %}
 {% block content %}
 
@@ -15,7 +15,7 @@
             <div class="card shadow-lg ">
                 <div class="card-body">
                     <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-hover">
                         <thead>
                         <tr>
                             <th>Item Name</th>
@@ -26,6 +26,8 @@
                             <th>Ordered Time</th>
                             <th>Contact No</th>
                             <th>Delivered Address</th>
+                            <th>Delivered Status</th>
+
 
                         </tr>
                         </thead>
@@ -40,8 +42,15 @@
                             <td>{{item.created_time}}</td>
                             <td>{{item.contact_no}}</td>
                             <td>{{item.contact_address}}</td>
-
-
+                            {%if item.status == "Approved" %}
+                            <td class="text-success" >
+                            <bold>DELIVERED</bold>    
+                            </td>
+                            {% elif item.status == "Pending" %}
+                            <td class="text-danger" >
+                                PENDING
+                            </td>
+                            {%endif%}
                         </tr>
                         {% endfor %}
                         </tbody>

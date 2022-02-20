@@ -78,11 +78,15 @@ def categoryUpdateForm(request,category_id):
 def showCategories(request):
     categories = Category.objects.all().order_by('-id')
     count= categories.count()
+    user = request.user
+    cart_items = Cart.objects.filter(user=user)
+    cart_count = cart_items.count()
 
     context = {
         'categories': categories,
         'count': count,
-        'activate_category_user': 'active'
+        'activate_category_user': 'active',
+        'cart_count': cart_count,
     }
     return render(request, 'books/showCategories.html', context)
 
@@ -161,10 +165,15 @@ def bookUpdateForm(request, book_id):
 def showBooks(request):
     books = Book.objects.all().order_by('-id')
     count = books.count()
+    
+    user = request.user
+    cart_items = Cart.objects.filter(user=user)
+    cart_count = cart_items.count()
     context = {
         'books': books,
         'count': count,
-        'activate_book_user': 'active'
+        'activate_book_user': 'active',
+        'cart_count': cart_count,
     }
     return render(request, 'books/showBooks.html', context)
 
@@ -245,10 +254,15 @@ def updateAuthor(request, author_id):
 def showAuthors(request):
     authors = Author.objects.all().order_by('-id')
     count = authors.count()
+    
+    user = request.user
+    cart_items = Cart.objects.filter(user=user)
+    cart_count = cart_items.count()
     context = {
         'authors': authors,
         'count': count,
-        'activate_author': 'active'
+        'activate_author': 'active',
+        'cart_count': cart_count,
     }
     return render(request, 'books/showAuthors.html', context)
 
@@ -269,7 +283,9 @@ def showAuthors(request):
 def addToCart(request, book_id):
     user = request.user
     book = Book.objects.get(id=book_id)
+    
     check_item_presence = Cart.objects.filter(user=user, book=book)
+    
     if check_item_presence:
         messages.add_message(request, messages.ERROR, "Item is already present in cart")
         return redirect('/books/show-books-user')
@@ -288,11 +304,14 @@ def showCartItems(request):
     user = request.user
     items = Cart.objects.filter(user=user)
     count= items.count()
+    cart_count = items.count()
+
 
     context = {
         'items': items,
         'count': count,
-        'activate_my_cart': 'active'
+        'activate_my_cart': 'active',
+        'cart_count': cart_count,
     }
     return render(request, 'books/myCart.html', context)
 
@@ -311,6 +330,9 @@ def orderForm(request, book_id, cart_id):
     user = request.user
     book = Book.objects.get(id=book_id)
     cart_item = Cart.objects.get(id=cart_id)
+    cart_items = Cart.objects.filter(user=user)
+    cart_count = cart_items.count()
+    
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
@@ -344,9 +366,11 @@ def orderForm(request, book_id, cart_id):
                 return redirect('/books/my-pending-order')
         else:
             messages.add_message(request, messages.ERROR, 'Something went wrong')
-            return render(request, 'books/orderForm.html', {order_form: form})
+            return render(request, 'books/orderForm.html', {'order_form': form,'cart_count':cart_count})
     context = {
         'order_form': OrderForm,
+        'cart_count': cart_count,
+
     }
     return render(request, 'books/orderForm.html', context)
 
@@ -365,10 +389,15 @@ def orderForm(request, book_id, cart_id):
 def userAllOrder(request):
     items = Order.objects.all().order_by('-id')
     count = items.count()
+    user = request.user
+    cart_items = Cart.objects.filter(user=user)
+    cart_count = cart_items.count()
     context = {
         'items': items,
         'count': count,
-        'activate_myorders': 'active'
+        'activate_myorders': 'active',
+        'cart_count': cart_count,
+
     }
     return render(request, 'books/userAllOrder.html', context)
 
@@ -378,11 +407,14 @@ def approvedOrder(request):
     user = request.user
     items = Order.objects.filter(user=user, status="Approved").order_by('-id')
     count=items.count()
+    cart_items = Cart.objects.filter(user=user)
+    cart_count = cart_items.count()
 
     context = {
         'items': items,
         'count': count,
-        'activate_myorders': 'active'
+        'activate_myorders': 'active',
+        'cart_count': cart_count,
     }
     return render(request, 'books/approvedOrder.html', context)
 
@@ -392,10 +424,13 @@ def pendingOrder(request):
     user = request.user
     items = Order.objects.filter(user=user, status="Pending").order_by('-id')
     count=items.count()
+    cart_items = Cart.objects.filter(user=user)
+    cart_count = cart_items.count()
     context = {
         'items': items,
         'count': count,
-        'activate_myorders': 'active'
+        'activate_myorders': 'active',
+        'cart_count': cart_count,
     }
     return render(request, 'books/pendingOrder.html', context)
 
@@ -415,12 +450,14 @@ def returnedOrder(request):
     user = request.user
     items = Order.objects.filter(user=user, status="Returned").order_by('-id')
     count=items.count()
+    cart_items = Cart.objects.filter(user=user)
+    cart_count = cart_items.count()
 
     context = {
         'items': items,
         'count': count,
-
-        'activate_myorders': 'active'
+        'cart_count': cart_count,
+        'activate_myorders': 'active',
     }
     return render(request, 'books/returnedOrder.html', context)
 
