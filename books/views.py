@@ -134,7 +134,7 @@ def deleteBook(request, book_id):
     book = Book.objects.get(id=book_id)
     book.delete()
     messages.add_message(request, messages.SUCCESS, 'Book deleted successfully')
-    return redirect('books/get-book')
+    return redirect('/books/get-book')
 
 @login_required
 @admin_only
@@ -145,7 +145,7 @@ def bookUpdateForm(request, book_id):
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Book Updated Successfully')
-            return redirect("/books/get_book")
+            return redirect("/books/get-book")
         else:
             messages.add_message(request, messages.ERROR, 'Unable to update Book')
             return render(request, 'books/book_form.html', {'form_book': form})
@@ -220,7 +220,7 @@ def deleteAuthor(request, author_id):
     author = Author.objects.get(id=author_id)
     author.delete()
     messages.add_message(request, messages.SUCCESS, 'Author deleted successfully')
-    # return redirect('books/get-author')
+    return redirect('/books/get-author')
 
 @login_required
 @admin_only

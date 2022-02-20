@@ -97,36 +97,50 @@
 
 <!-- Recently featured -->
 
-<div class="container-fluid py-4" id="featured">
-  <div class="container">
-    <div class="section-heading-1">
-      <h2 class="text-center mt-4 p-3 text-white">Recently Featured</h2>
-    </div>
-
-    <div class="row justify-content-around">
-      {% for i in books %}
-      <div class="card hbook bg-dark text-white col-md-3" style="margin: 3px">
-        <img src="/{{i.book_image}}" class="card-img-top" alt="Top Books" />
-        <div class="card-body">
-          <h5 class="card-title">{{ i.book_name }}</h5>
-          <span class="fa fa-star"></span>
-          <span class="fa fa-star"></span>
-          <span class="fa fa-star"></span>
-          <span class="fa fa-star"></span>
-          <span class="fa fa-star"></span>
-          <h6>{{ i.category.category_name }}</h6>
-          <p class="card-text">
-            The book that inspired the film quick example text to build on the card title and make up the bulk of the
-            card's content.
-          </p>
-          <a href="#" class="btn btn-primary mt-2">Add to Cart</a>
-        </div>
+<section id="recently-added">
+  <div class="best pt-5 mb-4">
+    <div class="container">
+      <div class="best-title text-center fs-1 mb-3">
+        <h3 class="mb-4">Recently Added</h3>
       </div>
 
-      {% endfor %}
+      <div id="owl-demo" class="owl-carousel owl-theme">
+        {% for i in books %}
+        <div class="card shadow">
+          <div class="card-body item mb-4">
+            <img
+              src="/{{i.book_image}}"
+              class="img-responsive card-img-top"
+              height="475"
+              width="auto"
+              alt="Book Image"
+              style="object-fit: cover"
+            />
+            <hr />
+            <h4 class="card-title mt-3">{{i.book_name}}</h4>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+            <p class="price mt-3">Rs. {{i.book_price}}</p>
+            <p class="text-muted">{{i.category.category_name}}</p>
+
+            <div id="cart-item" class="mb-4">
+              <a
+                href="/books/add-to-cart/{{i.id}}"
+                class="btn btn-outline-primary"
+                style="color: #5bc3ee; border-color: #5bc3ee"
+                >Add to cart</a
+              >
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- Testimonials -->
 
