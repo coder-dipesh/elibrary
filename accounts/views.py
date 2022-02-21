@@ -28,8 +28,9 @@ def homepage(request):
             'books': books,
         }
         return render(request, 'accounts/homepage.html', context)
-    else:
-        return render(request, 'accounts/homepage.html')
+        
+    return render(request, 'accounts/homepage.html', {'books': books})
+    
 
 @unauthenticated_user
 def signin(request):
@@ -145,6 +146,7 @@ def changePassword(request):
 
     }
     return render(request, 'accounts/changePassword.html', context)
+
 
 def contactUs(request):
         if request.method == 'POST':
