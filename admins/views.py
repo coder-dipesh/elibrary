@@ -32,7 +32,6 @@ def dashboard(request):
     admin_count = users.filter(is_superuser=1).count()
 
 
-
     context={
     'totalCategories':category_count,
     'totalAuthors':author_count,
