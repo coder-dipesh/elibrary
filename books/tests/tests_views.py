@@ -14,22 +14,7 @@ class Test_views(TestCase):
         self.assertTemplateUsed(response,'books/getBook.html')
 
 
-    def test_show_all_orders(self):
-        client=Client()
-        response=client.get(reverse('user-all-order'))
-        self.assertTemplateUsed(response,'books/userAllOrder.html')
-        
-        
-    def test_show_all_books(self):
-        client=Client()
-        response=client.get(reverse('show-books-user'))
-        self.assertTemplateUsed(response,'books/showBooks.html')
-        
-        
-    def test_show_all_authors(self):
-        client=Client()
-        response=client.get(reverse('show-authors-user'))
-        self.assertTemplateUsed(response,'books/showAuthors.html')
+
         
         
         

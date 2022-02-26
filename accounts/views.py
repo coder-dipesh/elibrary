@@ -32,7 +32,7 @@ def homepage(request):
     return render(request, 'accounts/homepage.html', {'books': books})
     
 
-@unauthenticated_user
+# @unauthenticated_user
 def signin(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -55,7 +55,7 @@ def signin(request):
     return render(request, 'accounts/signin.html',context)
 
 
-@unauthenticated_user
+# @unauthenticated_user
 def signup(request):
     if request.method=='POST':
         userdata = CreateUserForm(request.POST)
@@ -79,14 +79,14 @@ def signup(request):
     return render(request, 'accounts/signup.html', context)
 
 
-@login_required
+# @login_required
 def signout(request):
     logout(request)
     return redirect('/')
 
 
-@login_required
-@user_only
+# @login_required
+# @user_only
 def getProfile(request):
     profile = request.user.profile
     user = request.user
@@ -101,8 +101,8 @@ def getProfile(request):
     return render(request, 'accounts/userProfile.html', context)
 
 
-@login_required
-@user_only
+# @login_required
+# @user_only
 def updateUserProfile(request):
     profile = request.user.profile
     user = request.user
@@ -123,8 +123,8 @@ def updateUserProfile(request):
     return render(request, 'accounts/updateUserProfile.html', context)
 
 
-@login_required
-@user_only
+# @login_required
+# @user_only
 def changePassword(request):
     user = request.user
     cart_items = Cart.objects.filter(user=user)

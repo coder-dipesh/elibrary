@@ -15,8 +15,8 @@ from django.core.mail import EmailMessage
 
 
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def dashboard(request):
     users = User.objects.all()
     books = Book.objects.all()
@@ -45,8 +45,8 @@ def dashboard(request):
     return render(  request, 'admins/dashboard.html',context)
 
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def allOrders(request):
     items = Order.objects.all().order_by('-id')
     context = {
@@ -55,8 +55,8 @@ def allOrders(request):
     }
     return render(request, 'admins/allOrders.html', context)
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def declineOrder(request, order_id):
     order = Order.objects.get(id=order_id)
     order.status = 'Declined'
@@ -65,8 +65,8 @@ def declineOrder(request, order_id):
     return redirect('/admins/all-orders')
 
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def approveOrder(request, order_id):
     order = Order.objects.get(id=order_id)
     order.status = 'Approved'
@@ -82,8 +82,8 @@ def approveOrder(request, order_id):
     return redirect('/admins/all-orders')
 
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def allUsers(request):
     users = User.objects.filter(is_staff=0).order_by('-id')
     context = {
@@ -93,8 +93,8 @@ def allUsers(request):
     }
     return render(request, 'admins/allUsers.html', context)
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def allAdmins(request):
     admins = User.objects.filter(is_superuser=1).order_by('-id')
     context = {
@@ -105,8 +105,8 @@ def allAdmins(request):
     return render(request, 'admins/allAdmins.html', context)
 
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def promoteUser(request, user_id):
     user = User.objects.get(id=user_id)
     user.is_staff = True
@@ -116,8 +116,8 @@ def promoteUser(request, user_id):
     messages.add_message(request, messages.INFO, 'User promoted to Admin')
     return redirect('/admins/all-users')
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def deleteUser(request, user_id):
     user = User.objects.get(id=user_id)
     user.delete()
@@ -125,8 +125,8 @@ def deleteUser(request, user_id):
     return redirect('/admins/all-users')
 
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def demoteAdmin(request, user_id):
     admin = User.objects.get(id=user_id)
     admin.is_superuser=False
@@ -136,8 +136,8 @@ def demoteAdmin(request, user_id):
     return redirect('/admins/all-admins')
 
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def deactivate(request, user_id):
     user = User.objects.get(id=user_id)
     user.is_active = False
@@ -145,8 +145,8 @@ def deactivate(request, user_id):
     messages.add_message(request, messages.SUCCESS, 'Admin Account Deactivated!')
     return redirect('/admins/all-admins')
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def reactivate(request, user_id):
     user = User.objects.get(id=user_id)
     user.is_active = True
@@ -155,8 +155,8 @@ def reactivate(request, user_id):
     return redirect('/admins/all-admins')
 
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def adminChangePassword(request):
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)

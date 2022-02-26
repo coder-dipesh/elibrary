@@ -16,8 +16,8 @@ from django.template.loader import render_to_string
 # ==================== CATEGORY CRUD ================
 # ===================================================
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def categoryForm(request):
     if request.method == "POST":
         form = CategoryForm(request.POST,request.FILES)
@@ -34,8 +34,8 @@ def categoryForm(request):
     }
     return render(request , 'books/categoryForm.html', context)
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def getCategory(request):
     categories = Category.objects.all().order_by('-id')
     context = {
@@ -44,16 +44,16 @@ def getCategory(request):
     }
     return render(request, 'books/getCategory.html', context)
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def deleteCategory(request,category_id):
     category = Category.objects.get(id=category_id)
     category.delete()
     messages.add_message(request, messages.SUCCESS, 'Category deleted successfully')
     return redirect('/books/get-category')
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def categoryUpdateForm(request,category_id):
     category = Category.objects.get(id=category_id)
     if request.method == "POST":
@@ -73,8 +73,8 @@ def categoryUpdateForm(request,category_id):
 
     return render(request , 'books/categoryUpdateForm.html', context)
 
-@login_required
-@user_only
+# @login_required
+# @user_only
 def showCategories(request):
     categories = Category.objects.all().order_by('-id')
     count= categories.count()
@@ -99,8 +99,8 @@ def showCategories(request):
 # ==================== BOOK CRUD ====================
 # ===================================================
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def bookForm(request):
     if request.method == "POST":
         form = BookForm(request.POST, request.FILES)
@@ -119,8 +119,8 @@ def bookForm(request):
     return render(request, 'books/bookForm.html', context)
 
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def getBook(request):
     books = Book.objects.all().order_by('-id')
     book_filter = BookFilter(request.GET, queryset=books)
@@ -132,16 +132,16 @@ def getBook(request):
     }
     return render(request, 'books/getBook.html', context)
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def deleteBook(request, book_id):
     book = Book.objects.get(id=book_id)
     book.delete()
     messages.add_message(request, messages.SUCCESS, 'Book deleted successfully')
     return redirect('/books/get-book')
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def bookUpdateForm(request, book_id):
     book = Book.objects.get(id=book_id)
     if request.method == "POST":
@@ -160,8 +160,8 @@ def bookUpdateForm(request, book_id):
     }
     return render(request, 'books/bookUpdateForm.html', context)
 
-@login_required
-@user_only
+# @login_required
+# @user_only
 def showBooks(request):
     books = Book.objects.all().order_by('-id')
     count = books.count()
@@ -187,8 +187,8 @@ def showBooks(request):
 # ===================================================
 
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def authorForm(request):
     form = AuthorForm()
     if request.method == "POST":
@@ -208,8 +208,8 @@ def authorForm(request):
     return render(request, 'books/authorForm.html', context)
 
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def getAuthor(request):
     authors = Author.objects.all().order_by('-id')
     author_filter = AuthorFilter(request.GET, queryset=authors)  # to display form
@@ -223,16 +223,16 @@ def getAuthor(request):
     return render(request, 'books/getAuthor.html', context)
 
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def deleteAuthor(request, author_id):
     author = Author.objects.get(id=author_id)
     author.delete()
     messages.add_message(request, messages.SUCCESS, 'Author deleted successfully')
     return redirect('/books/get-author')
 
-@login_required
-@admin_only
+# @login_required
+# @admin_only
 def updateAuthor(request, author_id):
     author = Author.objects.get(id=author_id)
     if request.method == "POST":
@@ -249,8 +249,8 @@ def updateAuthor(request, author_id):
     return render(request, 'books/authorUpdateForm.html', context)
 
 
-@login_required
-@user_only
+# @login_required
+# @user_only
 def showAuthors(request):
     authors = Author.objects.all().order_by('-id')
     count = authors.count()
@@ -278,8 +278,8 @@ def showAuthors(request):
 # ===================================================
 
 
-@login_required
-@user_only
+# @login_required
+# @user_only
 def addToCart(request, book_id):
     user = request.user
     book = Book.objects.get(id=book_id)
@@ -298,8 +298,8 @@ def addToCart(request, book_id):
             messages.add_message(request, messages.ERROR, 'Unable to add book to cart')
 
 
-@login_required
-@user_only
+# @login_required
+# @user_only
 def showCartItems(request):
     user = request.user
     items = Cart.objects.filter(user=user)
@@ -315,8 +315,8 @@ def showCartItems(request):
     }
     return render(request, 'books/myCart.html', context)
 
-@login_required
-@user_only
+# @login_required
+# @user_only
 def removeCartItems(request, cart_id):
     item = Cart.objects.get(id=cart_id)
     item.delete()
@@ -324,8 +324,8 @@ def removeCartItems(request, cart_id):
     return redirect('/books/show-cart-items')
 
 
-@login_required
-@user_only
+# @login_required
+# @user_only
 def orderForm(request, book_id, cart_id):
     user = request.user
     book = Book.objects.get(id=book_id)
@@ -384,8 +384,8 @@ def orderForm(request, book_id, cart_id):
 # ===================================================
 # ========= ALL, PENDING, APPROVED ORDERS ===========
 # ===================================================
-@login_required
-@user_only
+# @login_required
+# @user_only
 def userAllOrder(request):
     items = Order.objects.all().order_by('-id')
     count = items.count()
@@ -401,8 +401,8 @@ def userAllOrder(request):
     }
     return render(request, 'books/userAllOrder.html', context)
 
-@login_required
-@user_only
+# @login_required
+# @user_only
 def approvedOrder(request):
     user = request.user
     items = Order.objects.filter(user=user, status="Approved").order_by('-id')
@@ -418,8 +418,8 @@ def approvedOrder(request):
     }
     return render(request, 'books/approvedOrder.html', context)
 
-@login_required
-@user_only
+# @login_required
+# @user_only
 def pendingOrder(request):
     user = request.user
     items = Order.objects.filter(user=user, status="Pending").order_by('-id')
@@ -435,8 +435,8 @@ def pendingOrder(request):
     return render(request, 'books/pendingOrder.html', context)
 
 
-@login_required
-@user_only
+# @login_required
+# @user_only
 def cancelOrder(request, order_id):
     item = Order.objects.get(id=order_id)
     item.delete()
@@ -444,8 +444,8 @@ def cancelOrder(request, order_id):
     return redirect('/books/my-pending-order')
 
 
-@login_required
-@user_only
+# @login_required
+# @user_only
 def returnedOrder(request):
     user = request.user
     items = Order.objects.filter(user=user, status="Returned").order_by('-id')
