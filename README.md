@@ -52,7 +52,7 @@ $ python manage.py test app_name
  
  - [Github](https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home) for source code management.
  - [Git](https://git-scm.com/downloads) as version control.
- - [Xammp](https://dev.mysql.com/downloads/workbench/) is used for running phpmyadmin.
+ - [Xampp](https://dev.mysql.com/downloads/workbench/) is used for running phpmyadmin.
  - [Photoshop](https://www.adobe.com/products/photoshop/free-trial-download.html) to edit required images.
  - [VsCode](https://code.visualstudio.com/) as a editor for writing code for whole project.
 
